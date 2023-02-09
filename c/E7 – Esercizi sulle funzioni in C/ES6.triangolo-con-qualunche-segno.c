@@ -1,4 +1,5 @@
 /*
+
     Modificare la funzione dell’esercizio precedente aggiungendo un parametro c di tipo
     char e facendo sì che venga stampato un triangolo di caratteri uguali a c. Ad esempio, se n fosse 4 e
     c fosse ‘#’, la funzione dovrebbe stampare:
@@ -7,6 +8,7 @@
      ###
     ####
     Scrivere poi un programma che usa la funzione scritta
+    
 */
 
 #include <stdio.h>

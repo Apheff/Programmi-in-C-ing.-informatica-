@@ -1,4 +1,5 @@
 /*
+
     Scrivere una funzione C che riceve tre parametri di tipo double 𝑎, 𝑏, e 𝑐 che
     rappresentano i coefficienti di un’equazione di secondo grado nella forma
     𝑎𝑥^2 + 𝑏𝑥 + 𝑐 = 0 e stampa le radici dell’equazione. Nel caso in cui le radici non siano reali la funzione deve stampare
@@ -10,19 +11,20 @@
     Se invece 𝑎 = 1, 𝑏 = 2, 𝑐 = 3, la funzione dovrebbe stampare:
     Soluzioni non reali.
     Scrivere un programma che usa la funzione scritta.
+    
 */
 
 #include <stdio.h>
 #include <math.h>
 
 /*
-    Creo una funzione "SoluzionePolinomio"
+    Creo una funzione "SoluzionePolinomio".
 */
 double SoluzionePolinomio (double a, double b, double c);
 
 /*
     Nel main faccio inserire all'utente tre variabili a, c, b e poi li
-    inserisci nella funzione SoluzionePolinomio
+    inserisci nella funzione SoluzionePolinomio.
 */
 int main ()
 {

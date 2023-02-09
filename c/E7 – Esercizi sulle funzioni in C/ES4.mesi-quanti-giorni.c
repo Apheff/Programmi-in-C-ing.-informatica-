@@ -1,10 +1,12 @@
 /*
+
     Scrivere una funzione che riceve come parametro un intero compreso tra 1 e 12 che
     rappresenta un mese dell’anno e restituisce il numero di giorni di quel mese. Se il valore passato
     come parametro è fuori dall’intervallo [1,12] la funzione restituisce -1;
     Scrivere poi un programma che chiede ripetutamente all’utente di inserire un numero che
     rappresenta un mese e gli mostra il numero di giorni di quel mese. L’inserimento termina quando
     l’utente inserisce un valore fuori dall’intervallo [1,12].
+    
 */
 
 #include <stdio.h>

@@ -1,4 +1,5 @@
 /*
+
     Scrivere una funzione che riceve un parametro intero n e stampa un triangolo di
     asterischi con base e altezza pari a n. Ad esempio se n fosse 4, la funzione dovrebbe stampare:
         *
@@ -6,6 +7,7 @@
       ***
      ****
     Scrivere poi un programma che usa la funzione scritta.
+    
 */
 
 #include <stdio.h>

@@ -1,7 +1,9 @@
 /*
+
     Scrivere una funzione che dato un intero n restituisce 1 (vero) se n ha tutte le cifre uguali,
     0 (falso) in caso contrario. Si scriva poi un programma che fa inserire un intero all’utente e mostra
     se tale intero ha tutte le cifre uguali o meno.
+    
 */
 
 #include <stdio.h>

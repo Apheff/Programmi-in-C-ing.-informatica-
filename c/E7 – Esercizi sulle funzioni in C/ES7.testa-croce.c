@@ -1,6 +1,10 @@
-/*  Scrivere una funzione che simuli il lancio di una moneta. La funzione non riceve alcun
-parametro e restituisce 0 (testa) o 1 (croce). Si scriva poi un programma che simuli il lancio della
-moneta per 100 volte e visualizzi il numero di teste e il numero di croci ottenute. */
+/*
+
+    Scrivere una funzione che simuli il lancio di una moneta. La funzione non riceve alcun
+    parametro e restituisce 0 (testa) o 1 (croce). Si scriva poi un programma che simuli il lancio della
+    moneta per 100 volte e visualizzi il numero di teste e il numero di croci ottenute.
+
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
