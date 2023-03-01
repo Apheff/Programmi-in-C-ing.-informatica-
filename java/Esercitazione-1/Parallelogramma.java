@@ -1,4 +1,4 @@
-package classi;
+import classi.*;
 import fond.io.*;
 
 
