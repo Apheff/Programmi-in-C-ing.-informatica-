@@ -1,0 +1,7 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/home/apheff/Downloads/fond.jar",
+        "../classi/*.java"
+    ]
+}
