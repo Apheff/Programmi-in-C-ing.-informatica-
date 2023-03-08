@@ -9,14 +9,14 @@ public class EsContoCorrente
 
         InputWindow in = new InputWindow();
         OutputWindow out = new OutputWindow();
-
+        
         String password = in.readString("- Inserisci password:");
         ContoCorrente mioConto = new ContoCorrente(password);
-
+        
         out.writeln("Conto corrente creato con successo!");
         
         /*  deposito    */
-
+        
         double importo = in.readDouble("Importo da depositare: ");
         String p = in.readString("-Inserisci password");
         mioConto.deposita(importo, p);

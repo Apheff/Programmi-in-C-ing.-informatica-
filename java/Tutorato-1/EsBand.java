@@ -1,5 +1,5 @@
-import classi.*;
-import fond.io.*;
+import classi.*;            // tutte le classi inserite si trovano sulla cartella ./tutorato-1/classi
+import fond.io.*;           
 
 public class EsBand
 {
@@ -8,8 +8,7 @@ public class EsBand
         /*  inizializzazione    */
 
         InputWindow in = new InputWindow();
-        OutputWindow out = new OutputWindow();
-
+        
         String nome1 = in.readString("Inserisci il nome del musicista");
         String strumento1 = in.readString("Inserisci il nomde dello strumento");
         String nome2 = in.readString("Inserisci il nome del musicista");
@@ -32,14 +31,15 @@ public class EsBand
 
         String nome = in.readString("Insersici il nome della band");
         band.setNome(nome);
-
+        
         String nomeMusicista = in.readString("Inserisci il nome nuovo musicista");
         String nomeStrumento = in.readString("Inserisci il nome del nuovo strumento");
         Musicista nuovo = new Musicista(nomeMusicista, nomeStrumento);
         band.setMusicista(nuovo);
-
+        
         /*  output  */
-
+        
+        OutputWindow out = new OutputWindow();
         out.writeln(band.stampaDescrizione());
 
 
