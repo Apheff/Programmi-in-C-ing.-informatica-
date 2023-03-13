@@ -3,5 +3,6 @@
         "lib/**/*.jar",
         "../classi/*.java",
         "/home/apheff/Documents/fond.jar"
-    ]
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
 }
