@@ -25,13 +25,13 @@ public class Formica
         switch (direzione)
         {
             case 1:
-                posY += lunghezza;
+                posY -= lunghezza;
                 break;
             case 2:
                 posX -= lunghezza;
                 break;
             case 3:
-                posY -= lunghezza;
+                posY += lunghezza;
                 break;
             case 4:
                 posX += lunghezza;

@@ -47,12 +47,15 @@ public class ProvaFormica
             mostrare il messaggio.
         */
         char opzione = 's';
-        while(opzione != 'n')
+        while(opzione != 'n')  // il ciclo si stoppa con opzione = 'n'
         {
+
             opzione = in.readChar("inserisci (s=sì, n=no) per scegliere di muovere la formica");
+            
             if(opzione == 's')
             {
-                int direzione = -1;
+
+                int direzione = -1;         // inizializzo direzione uguale a -1 per entrare dentro al while almeno una volta 
 
                 while(!(direzione<= 4 && direzione >= 1))
                 {
@@ -62,8 +65,8 @@ public class ProvaFormica
                         F1.muoviUnPasso(direzione);
                     }
                 }
-                
-                out.writeln(F1.stampaSpazio(dim));
+
+                out.writeln(F1.stampaSpazio(dim));  // stampo la matrice di stringhe creata
             }
         }
     }    
