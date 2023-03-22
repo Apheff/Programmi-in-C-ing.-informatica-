@@ -1,6 +1,7 @@
 import fond.io.*;
 
 /*
+    ESERCIZIO 1
     Scrivere un programma Java che fa inserire all’utente una Stringa s e mostra
     all’utente quante sono le lettere maiuscole o minuscole presenti nella stringa s e quante di
     esse sono vocali.
@@ -8,7 +9,7 @@ import fond.io.*;
     *Nota: la stringa può contenere caratteri che non sono lettere.*
 */
 
-public class Esercizio1
+public class LettereVocali
 {
     public static void main(String[] args)
     {

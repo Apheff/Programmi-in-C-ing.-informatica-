@@ -2,7 +2,7 @@ import classi.*;
 import fond.io.*;
 
 
-public class Parallelogramma
+public class EsercizioParallelogramma
 {
     public static void main(String[] args)
     {
@@ -16,7 +16,7 @@ public class Parallelogramma
         InputWindow in = new InputWindow();
         OutputWindow out = new OutputWindow();
     
-        /*  insersco il valore delle coordinate dei punti*/
+        /*  insersco il valore delle coordinate dei punti  */
 
         x1 = in.readDouble("Inserisci la x1");
         y1 = in.readDouble("Inserisci la y1");
@@ -25,7 +25,7 @@ public class Parallelogramma
         x3 = in.readDouble("Inserisci la x3");
         y3 = in.readDouble("Inserisci la y3");
 
-        /*  creo dei oggetti punto tramite le classi date   */
+        /*  creo dei oggetti punto tramite le classi date  */
 
         Punto p1 = new Punto(x1, y1);
         Punto p2 = new Punto(x2, y2);
@@ -36,7 +36,7 @@ public class Parallelogramma
         Retta r4 = r2.parallela(p2);
         Punto p4 = r4.intersezione(r3);
 
-        /*  le coordinate x e y del punto p4    */
+        /*  le coordinate x e y del punto p4  */
 
         double x4 = p4.coordX();
         double y4 = p4.coordY();

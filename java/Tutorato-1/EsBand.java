@@ -5,7 +5,7 @@ public class EsBand
 {
     public static void main(String[] args)
     {
-        /*  inizializzazione    */
+        /*  inizializzazione  */
 
         InputWindow in = new InputWindow();
         

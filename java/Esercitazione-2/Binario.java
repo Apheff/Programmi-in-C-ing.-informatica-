@@ -1,16 +1,17 @@
 import fond.io.*;
 
 /*
+    ESERCIZIO 3
     Scrivere un programma Java che fa inserire all’utente una stringa di cifre binarie
     e che visualizza il numero naturale corrispondente, in base alla rappresentazione
     posizionale. Ad esempio, se l’utente inserisse la stringa “0101”, il programma dovrebbe
     restituire il numero 5, come risultato della somma: 
     
-     **   0 * 2^3 + 1 * 2^2 + 0 * 2^1 + 1 * 2^0   **
+    **   0 * 2^3 + 1 * 2^2 + 0 * 2^1 + 1 * 2^0   **
 .
 */
 
-public class Esercizio3
+public class Binario
 {
     public static void main (String[] args)
     {
@@ -34,7 +35,7 @@ public class Esercizio3
 
         /*  output  */
 
-        System.out.println("Il numero in decimale e': " + (int)decimale);
+        System.out.println("Il numero in decimale e': " + decimale);
 
     }
 }   

@@ -1,11 +1,12 @@
 import fond.io.*;
 import classi.*;            // tutte le classi inserite si trovano sulla cartella ./tutorato-1/classi
 
+
 public class EsContoCorrente
 {
     public static void main (String[] args)
     {
-        /*  inizializzazione    */
+        /*  inizializzazione   */
 
         InputWindow in = new InputWindow();
         OutputWindow out = new OutputWindow();
@@ -15,7 +16,7 @@ public class EsContoCorrente
         
         out.writeln("Conto corrente creato con successo!");
         
-        /*  deposito    */
+        /*  deposito  */
         
         double importo = in.readDouble("Importo da depositare: ");
         String p = in.readString("-Inserisci password");
@@ -25,7 +26,7 @@ public class EsContoCorrente
         out.writeln("Il saldo attuale e': ");
         out.writeln(saldo);
 
-        /*  prelievo    */
+        /*  prelievo  */
 
         importo = in.readDouble("Importo da prelevare: ");
         p = in.readString("-Inserisci password");

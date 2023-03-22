@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 
 
 /*
+    ESERCIZIO 2
     Scrivere un programma Java che fa inserire all’utente una stringa che
     rappresenta la sua data di nascita nel formato gg/mm/aaaa (ad. es 02/09/1997), una
     seconda stringa che rappresenta la data odierna nello stesso formato, e calcola l’età
@@ -15,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 */
 
 
-public class Esercizio2
+public class Eta
 {
     public static void main(String[] args)
     {
