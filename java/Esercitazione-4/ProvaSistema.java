@@ -10,7 +10,9 @@ public class ProvaSistema
 		InputWindow in = new InputWindow();
 
         /*  creazione della matrice A  */
-        double[][] A = new double [3][5];
+        int m = in.readInt("Insersici numero equazioni");
+        int n = in.readInt("Inserisci numero incognite");
+        double[][] A = new double [m][n];
 
         for(int i = 0; i < A.length; i++)
         {
@@ -21,7 +23,7 @@ public class ProvaSistema
         }
 
         /*  creazione dell'array b */
-        double[] b = new double [3];
+        double[] b = new double [m];
         for(int i = 0; i < b.length; i++)
         {
             b[i] = in.readDouble("Insersici l'elemento b"+ (i+1));            
@@ -39,7 +41,7 @@ public class ProvaSistema
             fa inserire all'utente un vettore x che rappresenta una possibile soluzione del 
             sistema (è necessario garantire che la dimensione del vettore inserito sia corretta)
         */
-        double[] X = new double [5];
+        double[] X = new double [n];
         for(int i = 0; i < A[0].length; i++)
         {
             X[i] = in.readDouble("Insersici l'elemento X"+ (i+1));
