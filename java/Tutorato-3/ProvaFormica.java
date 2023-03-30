@@ -47,7 +47,7 @@ public class ProvaFormica
             mostrare il messaggio.
         */
         char opzione = 's';
-        while(opzione != 'n')  // il ciclo si stoppa con opzione = 'n'
+        while(opzione != 'n')  // il ciclo si interrompe con opzione = 'n'
         {
 
             opzione = in.readChar("inserisci (s=sì, n=no) per scegliere di muovere la formica");

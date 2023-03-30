@@ -38,9 +38,9 @@ public class ProvaFormica
             opzione = in.readInt("Scegli un'opzione del menu");
             switch (opzione) {
                 case 1:
-                    String creaFormica = "si";
+                    String creaFormica = "Y";
 
-                    while(!(creaFormica.equals("no")))
+                    while(!(creaFormica.equals("n")))
                     {
                         int i = in.readInt("inserisci la coordinata i");
                         int j = in.readInt("inserisci la coordinata j");
@@ -51,14 +51,14 @@ public class ProvaFormica
                             System.out.println("- Formica *NON* creata correttamente...");
 
                         out.writeln(F1.toString());
-                        creaFormica = in.readString("Vuoi inserire una nuova formica? (si/no)");
+                        creaFormica = in.readString("Vuoi inserire una nuova formica? (Y/n)");
                     }
                     out.writeln(F1.toString());
                     break;
                 case 2:
-                    String muoviFormica = "si";
+                    String muoviFormica = "Y";
 
-                    while(!(muoviFormica.equals("no")))
+                    while(!(muoviFormica.equals("n")))
                     {
                         int direzione = in.readInt("Inserisci la direzione: (1=NORD, 2=OVEST, 3=SUD, 4=EST)");
                         int id = in.readInt("Inserisci l'id della formica");
@@ -69,6 +69,7 @@ public class ProvaFormica
                             System.out.println("- Formica *NON* mossa correttamente...");
 
                         out.writeln(F1.toString());
+                        muoviFormica = in.readString("Vuoi muovere una formica? (Y/n)");
                     }
                     break;
                 case 3:
