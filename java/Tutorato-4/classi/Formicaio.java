@@ -63,7 +63,7 @@ public class Formicaio
             {
                 if(this.formicaio[i][j] == id)
                 {
-                    if(direzione == 1 && i-1 >= 0 && !(this.occupata(i+1, j)))
+                    if(direzione == 1 && i-1 >= 0 && !(this.occupata(i-1, j)))
                     {
                         this.formicaio[i][j] = 0;
                         this.formicaio[i-1][j] = id;
