@@ -16,11 +16,11 @@ public class Circonferenza
 
     /* restituisce il centro della circonferenza rappresentata dall’oggetto ricevente (cioè
     quello su cui è invocato il metodo) */
-    public Punto centro ()
+    public PuntoV2 centro ()
     {
         double xc = - this.a / 2;
         double yc = - this.b / 2;
-        return new Punto(xc, yc);
+        return new PuntoV2(xc, yc);
     }
 
     /* restituisce il raggio della circonferenza rappresentata dall’oggetto ricevente (cioè

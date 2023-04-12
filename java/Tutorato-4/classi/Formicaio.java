@@ -2,7 +2,7 @@ package classi;
 
 public class Formicaio
 {
-    private int[][]A;
+    private int[][]formicaio;
 
     /*
         Costruttore: crea un formicaio il cui spazio è una matrice 
@@ -11,13 +11,13 @@ public class Formicaio
     */
     public Formicaio (int dim)
     {
-        this.A = new int[dim][dim]; 
+        this.formicaio = new int[dim][dim]; 
        
         for(int i = 0; i < dim; i++)
         {            
             for(int j = 0; j < dim; j++)
             {                
-                this.A[i][j] = 0;
+                this.formicaio[i][j] = 0;
             }
         }
     }
@@ -30,10 +30,10 @@ public class Formicaio
     public boolean aggiungiFormica (int i, int j)
     {
 
-        if(A[i][j] == 0 && i < this.A.length && j < this.A[0].length)
+        if(!(this.occupata(i, j)) && i < this.formicaio.length && j < this.formicaio[0].length)
         {
-            Formica F = new Formica(i, j);
-            this.A[i][j]= F.getId();
+            FormicaV2 F = new FormicaV2(i, j);
+            this.formicaio[i][j]= F.getId();
             return true;
         }
         else
@@ -43,7 +43,7 @@ public class Formicaio
     /* Verifica se una cella (i,j) del formicaio è occupata da qualche formica */
     public boolean occupata (int i, int j)
     {
-        if(this.A[i][j] != 0)
+        if(this.formicaio[i][j] != 0)
             return true;
         else
             return false;
@@ -57,39 +57,44 @@ public class Formicaio
     */
     public boolean muoviFormica (int direzione, int id)
     {
-        for(int i = 0; i < this.A.length; i++)
+        for(int i = 0; i < this.formicaio.length; i++)
         {
-            for(int j = 0; j < this.A[0].length; j++)
+            for(int j = 0; j < this.formicaio[0].length; j++)
             {
-                if(this.A[i][j] == id)
+                if(this.formicaio[i][j] == id)
                 {
-                    if(direzione == 1 && i-1 >= 0 && this.A[i-1][j] == 0)
+                    if(direzione == 1 && i-1 >= 0 && !(this.occupata(i+1, j)))
                     {
-                        this.A[i][j] = 0;
-                        this.A[i-1][j] = id;
+                        this.formicaio[i][j] = 0;
+                        this.formicaio[i-1][j] = id;
+                        System.out.println("- Formica mossa correttamente!");
                         return true;
                     }
-                    else if(direzione == 2 && j-1 >= 0 && this.A[i][j-1] == 0)
+                    else if(direzione == 2 && j-1 >= 0 && !(this.occupata(i, j-1)))
                     {
-                        this.A[i][j] = 0;
-                        this.A[i][j-1] = id;
+                        this.formicaio[i][j] = 0;
+                        this.formicaio[i][j-1] = id;
+                        System.out.println("- Formica mossa correttamente!");
                         return true;
                     }
-                    else if(direzione == 3 && i+1 <= this.A.length && this.A[i+1][j] == 0)
+                    else if(direzione == 3 && i+1 <= this.formicaio.length && !(this.occupata(i+1, j)))
                     {
-                        this.A[i][j] = 0;
-                        this.A[i+1][j] = id;
+                        this.formicaio[i][j] = 0;
+                        this.formicaio[i+1][j] = id;
+                        System.out.println("- Formica mossa correttamente!");
                         return true;
                     }
-                    else if(direzione == 4 && j+1 <= this.A[0].length && this.A[i][j+1] == 0)
+                    else if(direzione == 4 && j+1 <= this.formicaio[0].length && !(this.occupata(i, j+1)))
                     {
-                        this.A[i][j] = 0;
-                        this.A[i][j+1] = id;
+                        this.formicaio[i][j] = 0;
+                        this.formicaio[i][j+1] = id;
+                        System.out.println("- Formica mossa correttamente!");
                         return true;
                     }
                 }
             }
         }
+        System.out.println("- Formica *NON* mossa correttamente...");
         return false;
     }
 
@@ -100,13 +105,13 @@ public class Formicaio
     public String toString ()
     {
         String s = "-------FORMICAIO-------\n";
-        for(int i = 0; i < this.A.length; i++)
+        for(int i = 0; i < this.formicaio.length; i++)
         {
-            for(int j = 0; j < this.A[0].length; j++)
+            for(int j = 0; j < this.formicaio[0].length; j++)
             {
-                if(this.A[i][j] != 0)
+                if(this.formicaio[i][j] != 0)
                 {
-                    s += this.A[i][j] + "  ";
+                    s += this.formicaio[i][j] + "  ";
                 }
                 else
                     s += "*  ";

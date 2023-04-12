@@ -1,7 +1,7 @@
 import classi.*;
 import fond.io.*;
 
-public class ProvaFormica 
+public class ProvaFormicaV2
 {
     public static void main(String[] args)
     {
@@ -46,7 +46,7 @@ public class ProvaFormica
                         int j = in.readInt("inserisci la coordinata j");
 
                         if(F1.aggiungiFormica(i, j))
-                            System.out.println("- Formica "+Formica.getLastId()+" e' stata creata correttamente!");
+                            System.out.println("- Formica "+FormicaV2.getLastId()+" e' stata creata correttamente!");
                         else
                             System.out.println("- Formica *NON* creata correttamente...");
 
@@ -62,11 +62,7 @@ public class ProvaFormica
                     {
                         int direzione = in.readInt("Inserisci la direzione: (1=NORD, 2=OVEST, 3=SUD, 4=EST)");
                         int id = in.readInt("Inserisci l'id della formica");
-
-                        if(F1.muoviFormica(direzione, id))
-                            System.out.println("- Formica mossa correttamente!");
-                        else
-                            System.out.println("- Formica *NON* mossa correttamente...");
+                        F1.muoviFormica(direzione, id);
 
                         out.writeln(F1.toString());
                         muoviFormica = in.readString("Vuoi muovere una formica? (Y/n)");
@@ -78,6 +74,6 @@ public class ProvaFormica
                     System.out.println("*******ERRORE 404*******");
                     break;
             }
-        }while(opzione != 3 && Formica.getLastId() < 10);
+        }while(opzione != 3 && FormicaV2.getLastId() < 10);
     }
 }

@@ -1,5 +1,5 @@
 import fond.io.*;
-import classi.Punto;
+import classi.PuntoV2;
 import classi.Retta;
 
 public class EsercizioTriangolo
@@ -27,9 +27,9 @@ public class EsercizioTriangolo
 
         /*  creo dei oggetti punto tramite le classi date  */
 
-        Punto p1 = new Punto(x1, y1);
-        Punto p2 = new Punto(x2, y2);
-        Punto p3 = new Punto(x3, y3);   
+        PuntoV2 p1 = new PuntoV2(x1, y1);
+        PuntoV2 p2 = new PuntoV2(x2, y2);
+        PuntoV2 p3 = new PuntoV2(x3, y3);   
         
         /*  calcolo dell'ortocentro  */
 
@@ -37,13 +37,13 @@ public class EsercizioTriangolo
         Retta R23 = new Retta(p2, p3);
         Retta Altezza12 = R12.perpendicolare(p3);
         Retta Altezza23 = R23.perpendicolare(p1);
-        Punto intersezione = Altezza12.intersezione(Altezza23);
+        PuntoV2 intersezione = Altezza12.intersezione(Altezza23);
         out.writeln("- ortocentro: ( "+intersezione.coordX()+", "+intersezione.coordY()+" )");
 
         /*  calcolo del baricentro  */
 
-        Punto medio12 = Punto.puntoMedio(p1, p2);
-        Punto medio23 = Punto.puntoMedio(p2, p3);        
+        PuntoV2 medio12 = PuntoV2.puntoMedio(p1, p2);
+        PuntoV2 medio23 = PuntoV2.puntoMedio(p2, p3);        
         Retta Mediana12 = new Retta(p3, medio12);
         Retta Mediana23 = new Retta(p1, medio23);
         intersezione = Mediana12.intersezione(Mediana23);

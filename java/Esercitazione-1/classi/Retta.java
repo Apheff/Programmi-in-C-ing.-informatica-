@@ -6,7 +6,7 @@ public class Retta
 	private double q; // termine noto
 
 
-	public Retta (Punto p1, Punto p2){
+	public Retta (PuntoV2 p1, PuntoV2 p2){
 		if(p1.coordX()!=p2.coordX()){
 			// determina m e q
 			this.m = (p2.coordY()-p1.coordY())/(p2.coordX()-p1.coordX());
@@ -17,36 +17,36 @@ public class Retta
 		}
 	}
 
-	public Retta parallela (Punto p)
+	public Retta parallela (PuntoV2 p)
 	{
 		if(this.m==Double.POSITIVE_INFINITY)
 		{
-			return new Retta(p,new Punto(p.coordX(),p.coordY()+1));
+			return new Retta(p,new PuntoV2(p.coordX(),p.coordY()+1));
 		}
 		else
 		{
 			double nq=p.coordY()-this.m*p.coordX();
-			return new Retta(p,new Punto(p.coordX()+1,this.m*(p.coordX()+1)+nq));
+			return new Retta(p,new PuntoV2(p.coordX()+1,this.m*(p.coordX()+1)+nq));
 		}
 	}
 
-	public Retta perpendicolare (Punto p)
+	public Retta perpendicolare (PuntoV2 p)
 	{
 		if(this.m==0){ // retta orizzontale
-			return new Retta(p,new Punto(p.coordX(),p.coordY()+1));
+			return new Retta(p,new PuntoV2(p.coordX(),p.coordY()+1));
 		}
 		else if(this.m==Double.POSITIVE_INFINITY)
 		{ // retta verticale
-			return new Retta(p,new Punto(p.coordX()+1,p.coordY()));
+			return new Retta(p,new PuntoV2(p.coordX()+1,p.coordY()));
 		}
 		else{
 			double m1=-1/m;
 			double nq=p.coordY()-m1*p.coordX();
-			return new Retta(p,new Punto(p.coordX()+1,m1*(p.coordX()+1)+nq));
+			return new Retta(p,new PuntoV2(p.coordX()+1,m1*(p.coordX()+1)+nq));
 		}
 	}
 
-	public Punto intersezione(Retta r){
+	public PuntoV2 intersezione(Retta r){
 		if(this.m==r.m)
 			return null;
 
@@ -67,7 +67,7 @@ public class Retta
 			ya=r.m*xa+r.q;
 		}
 
-		return new Punto(xa,ya);
+		return new PuntoV2(xa,ya);
 	}
 
 	public String toString()

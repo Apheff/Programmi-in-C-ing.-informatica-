@@ -1,6 +1,6 @@
 package classi;
 
-public class Formica
+public class FormicaV2
 {
 
   private int i,j;
@@ -8,11 +8,11 @@ public class Formica
   private static int count = 1;
 
   /* Costruttore: crea una formica con la posizione specificataassegnandole un id */
-  public Formica (int i, int j)
+  public FormicaV2 (int i, int j)
   {
     this.i = i;
     this.j = j;
-    this.id = Formica.count;
+    this.id = FormicaV2.count;
     count++;
   }
 
@@ -49,6 +49,6 @@ public class Formica
   /* Restituisce l’ultimo id assegnato ad una formica */
   public static int getLastId () 
   {
-    return Formica.count;
+    return FormicaV2.count;
   } 
 }

@@ -27,14 +27,14 @@ public class EsercizioParallelogramma
 
         /*  creo dei oggetti punto tramite le classi date  */
 
-        Punto p1 = new Punto(x1, y1);
-        Punto p2 = new Punto(x2, y2);
-        Punto p3 = new Punto(x3, y3);
+        PuntoV2 p1 = new PuntoV2(x1, y1);
+        PuntoV2 p2 = new PuntoV2(x2, y2);
+        PuntoV2 p3 = new PuntoV2(x3, y3);
         Retta r1 = new Retta(p1, p2);
         Retta r2 = new Retta(p1, p3);
         Retta r3 = r1.parallela(p3);
         Retta r4 = r2.parallela(p2);
-        Punto p4 = r4.intersezione(r3);
+        PuntoV2 p4 = r4.intersezione(r3);
 
         /*  le coordinate x e y del punto p4  */
 
