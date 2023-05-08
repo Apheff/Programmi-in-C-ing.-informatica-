@@ -45,7 +45,7 @@ public class Tartaglia
      sotto forma di stringa */ 
     public String toString()
     {
-        String s = "- Triangolo di Tartaglia\n\n";
+        String s = "";
         for(int i = 0; i < this.triangolo.length; i++)
         {
             for (int spazi = 1; spazi < this.triangolo.length - i; spazi++)
