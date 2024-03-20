@@ -1,0 +1,133 @@
+abs(n)
+    mette il numero in valore assoluto
+
+
+isinstance(obj, obj)
+    un boolean che ti dice se e' vero che sono dello stesso tipo
+    esempio: isinstace(42, int) restituisce true
+
+id(obj)
+    restituisci l'id dell'oggetto che cambia ogni volta che lo eseguite
+
+type(obj)
+    restituisce il tipo di oggetto
+
+-- STRINGHE
+
+\\ backslash
+\n nuova riga
+\t tab 
+\' singolo apice
+\" Doppi apici
+\xxx carattere unicode
+
+len(str)
+    ritorna la lunghezza di una stringa
+
+str + str
+    concatena 2 stringhe
+
+str * int 
+    replica una stringa un numero di volte specificate da int
+
+str in str
+    controllare se una stringa e' presente in un'altra
+
+str[int]
+    restituisce il carattere alla posizione specificata dall'indice int
+
+str[start:end]
+    restituisce la sotto stringa compresa tra gli indici start (incluso)
+    end (escluso)
+
+str[:end]
+    parte dall'indice zero fino all'end (escluso)
+
+str[start:]
+    parte da start (incluso) fino all'ultimo indice della stringa 
+
+==, != booleani
+<,> operatiori per verificare l'ordine lessicografico di due stringhe
+
+se leggo la stringa dalla fine l'indice parte da -1
+
+str.upper() MAIUSCOLA
+str.lower() minuscola
+
+str1.strip(str2)
+
+
+str1.replace(str2, str3)
+    cerca la sottostringa str2 in str1 e la sostituisce con str3
+
+
+-- LISTE[]
+    sono liste di oggetti MUTABILI. Esempio: list = [1, 2, 3]
+
+.sort() ordina
+
+.append() aggiunge alla fine della lista
+
+.insert(i, obj) is inserisce un altro oggetto nella i-esima posizione
+
+.remove(obj) cancellera' il primo oggetto obj che trova e lo elimina
+
+list_clone = list[:]
+    per clonare una lista
+
+-- TUPLE()
+    sono liste di oggetti IMMUTABILI, ma funziona come le liste
+    Esempio: tuple = (1, 2, 3) 
+
+tuple.index(obj) restituisce l'indice dell'oggetto
+tuple.count(obj) restituisce il numero di occorrenze di obj
+
+-- Dictionary
+    - sono dizionari sono mappe tra oggetti. una mappa tra oggetti chiave (IMMUTABILI)
+    e oggetti valore.
+    - sono mutabili
+    - non si puo' accedere tramite oggetti ma solo per chiavi
+
+dict.keys()
+    restituisce una lista di keys
+
+dict.values()
+    restituisce la lista di valori presenti nel dizionario
+
+dict.items()
+    Restituisce una lista di tuple (coppie chiave-valore) 
+    presenti nel dizionario
+
+len(dict)
+    Funzione che restituisce la lunghezza (numero degli oggetti contenuti) di 
+    una dizionario
+
+dict[obj]
+    Restituisce il valore associato alla chiave obj
+
+dict[obj_key]=obj_value
+    Aggiunge o modifica il valore associato alla chiave obj_key
+
+obj in dict 
+    Controlla nel dizionario è presente la chiave obj
+
+
+====CICLI FOR=====
+
+range(start, stop, increment)
+
+break
+    interrompe completamente il ciclo(sia for che while)
+
+contrinue
+    interrompe l'esecuzione di quel i-esimo ciclo
+
+
+===FUNZIONI===
+sono blocchi di codice a cui viene assegnato un nome arbitrario
+la forma e' 
+
+def f(arg1, arg2)
+    istruzione 1
+    istruzione 2 
+    return variabili_restituire
