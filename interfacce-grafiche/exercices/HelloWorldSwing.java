@@ -10,7 +10,7 @@ public class HelloWorldSwing{
     public static void main(String[] args){
         JFrame frame = new JFrame("HelloWorldSwingGUI");
 
-        JLabel label = new JLabel("SCEMO CHI LEGGE");
+        JLabel label = new JLabel("HelloWorldSwingGUI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Container contPane = frame.getContentPane();

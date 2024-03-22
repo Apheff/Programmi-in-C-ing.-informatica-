@@ -3,6 +3,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingWorker;
+import javax.swing.UIManager;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -79,18 +80,20 @@ public class SwingApplication extends JFrame implements ActionListener {
     private void executeSlowMethodInBackground(final int sec)
     {
         
-       SwingWorker worker = new SwingWorker<Void, Void>()
+        @SuppressWarnings("rawtypes")
+        SwingWorker worker = new SwingWorker<Void, Void>()
        {
 
            public Void doInBackground()
            {
-               // to-do
+               System.out.println("in ... doInBackground");
+               slowMethod(sec);
                return null;
            }
            public void done()
            {
-               // to-do
-
+               numSlowClicks++;
+               label2.setText(LABEL2_PREFIX + numSlowClicks);
            }
        };
        
@@ -112,7 +115,7 @@ public class SwingApplication extends JFrame implements ActionListener {
                 this.numSlowClicks++;
                 this.label2.setText(LABEL2_PREFIX + this.numSlowClicks);
             */
-            executeSlowMethodInBackground(10);
+            executeSlowMethodInBackground(1);
         }
     } // end acrionPerformed
 
@@ -125,9 +128,9 @@ public class SwingApplication extends JFrame implements ActionListener {
             - UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             - UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
             - UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-            - UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
             - UIManager.setLookAndFell("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFell")
-        */
+            */
+        UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 
         // multithread functionality
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
