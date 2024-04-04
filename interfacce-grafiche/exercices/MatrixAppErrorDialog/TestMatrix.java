@@ -109,7 +109,7 @@ public class TestMatrix {
                     JOptionPane.showMessageDialog(null, msg, "Matrix call value", JOptionPane.PLAIN_MESSAGE);
                 }
                 catch(ArrayIndexOutOfBoundsException aioobe){
-                    errorMsgDialog("Attento inserisci i valori nei limiti dell'array.");
+                    errorMsgDialog( "Attento inserisci i valori nei limiti dell'array.");
                 }
             }
         }
