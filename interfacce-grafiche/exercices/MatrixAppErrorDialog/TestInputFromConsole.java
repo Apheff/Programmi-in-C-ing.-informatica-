@@ -30,14 +30,14 @@ public class TestInputFromConsole {
                 str = buffRead.readLine();
                 strArray[index] = str;
             }
-            catch(IOException ioe){
-                ioe.printStackTrace();
-            }
             catch(ArrayIndexOutOfBoundsException aioobe){ // aggiungo queste solo per rendere solido il codice anche se non servono
                 aioobe.printStackTrace();
             }
             catch(NumberFormatException nfe){ // aggiungo queste solo per rendere solido il codice anche se non servono
                 nfe.printStackTrace();
+            }
+            catch(IOException ioe){
+                ioe.printStackTrace();
             }
         } // end while
 
