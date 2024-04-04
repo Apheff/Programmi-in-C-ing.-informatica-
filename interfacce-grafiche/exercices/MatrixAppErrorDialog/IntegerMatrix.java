@@ -1,3 +1,5 @@
+package MatrixAppErrorDialog;
+
 public class IntegerMatrix {
 
     private int[][] matrix;
