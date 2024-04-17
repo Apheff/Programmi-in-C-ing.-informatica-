@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<!--<html lang="en">-->
+<html lang="it">
+<head>
+	<!--<meta charset="utf-8">-->
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="description" content="Esercitazione di Elementi di Informatica Grafica - Dipartimento d'Ingegneria - Universit&agrave; degli Studi di Perugia">
+	<meta name="author" content="Luca Grilli">
+	
+	<title>Esercitazione di Elementi di Informatica Grafica</title>
+	<style>
+		#preview-box {
+			background-color: rgba(1,1,1,0.1);
+			padding: 1px 10px;
+			border-radius: 10px;
+		}
+	</style>
+	<link id="linkstyle" rel="stylesheet" href="css/markdown.css">
+</head>
+
+<body>
+
+<!-- [start] SELETTORE STILE
+================================================== -->
+<strong>Scegli un altro foglio di stile</strong>
+<div id="preview-box">
+		<select style="width:100%" id="themes">
+			<option value="css/markdown.css">markdown</option>
+			<option value="css/markdown-alt.css">markdown-alt</option>
+			<option value="css/markdown-luca.css">markdown-luca</option>
+			<option value="css/markdown1.css">markdown1</option>
+			<option value="css/markdown2.css">markdown2</option>
+			<option value="css/markdown3.css">markdown3</option>
+			<option value="css/markdown4.css">markdown4</option>
+			<option value="css/markdown5.css">markdown5</option>
+			<option value="css/markdown6.css">markdown6</option>
+			<option value="css/markdown7.css">markdown7</option>
+			<option value="css/markdown8.css">markdown8</option>
+			<option value="css/markdown9.css">markdown9</option>
+			<option value="css/markdown10.css">markdown10</option>
+			<option value="css/avenir-white.css">avenir-white</option>
+			<option value="css/foghorn.css">foghorn</option>
+			<option value="css/screen.css">screen</option>
+			<option value="css/swiss.css">swiss</option>
+			<option value="css/pandoc-default.css">pandoc-default</option>
+			<option value="css/pandoc-bigger-font-code.css">pandoc-bigger-font-code</option>
+			<option value="css/splendor.css">splendor</option>
+		</select>
+</div>
+<script>
+	var linkstyle = document.getElementById('linkstyle');
+	var themes = document.getElementById('themes');
+	themes.onchange = function(e) {
+		linkstyle.href = themes.value;
+	};
+</script>
+<!-- [end] SELETTORE STILE
+================================================== -->
+
+<!-- [start] PANDOC OUTPUT
+================================================== -->
+
+
+<h1 id="classi-interne-per-la-gestione-degli-eventi-di-una-gui">Classi Interne per la Gestione degli Eventi di una GUI</h1>
+<h3 id="gestione-degli-eventi-di-una-gui-svolta-da-un-unico-oggetto">Gestione degli eventi di una GUI svolta da un unico oggetto</h3>
+<p>Si consideri il seguente codice della classe <strong><code>SwingApplication</code></strong> esaminata in una precedente esercitazione.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">import java.awt.event.ActionEvent;</span>
+<span class="kw">import java.awt.event.ActionListener;</span>
+<span class="kw">import java.awt.event.KeyEvent;</span>
+<span class="kw">import java.awt.BorderLayout;</span>
+<span class="kw">import java.awt.Container;</span>
+<span class="kw">import java.awt.GridLayout;</span>
+<span class="kw">import javax.swing.BorderFactory;</span>
+<span class="kw">import javax.swing.JFrame;</span>
+<span class="kw">import javax.swing.JPanel;</span>
+<span class="kw">import javax.swing.JButton;</span>
+<span class="kw">import javax.swing.JLabel;</span>
+<span class="kw">import javax.swing.UIManager;</span>
+
+<span class="kw">public</span> <span class="kw">class</span> SwingApplication <span class="kw">extends</span> JFrame <span class="kw">implements</span> ActionListener {
+
+    <span class="kw">private</span> <span class="dt">static</span> String labelPrefix = <span class="st">&quot;Number of button clicks: &quot;</span>;
+    <span class="kw">private</span> <span class="dt">static</span> String lab2Prefix = <span class="st">&quot;Executions of Slow Method: &quot;</span>;
+    <span class="kw">private</span> <span class="dt">int</span> numClicks = <span class="dv">0</span>;
+    <span class="kw">private</span> <span class="dt">int</span> numSlowClicks = <span class="dv">0</span>;
+    <span class="kw">private</span> JButton jbutton;
+    <span class="kw">private</span> JLabel jlabel;
+    <span class="kw">private</span> JButton jbut2;
+    <span class="kw">private</span> JLabel jlab2;
+
+    <span class="kw">public</span> <span class="fu">SwingApplication</span>() {
+        <span class="kw">super</span>(<span class="st">&quot;SwingApplication&quot;</span>);
+        <span class="kw">this</span>.<span class="fu">setDefaultCloseOperation</span>(JFrame.<span class="fu">EXIT_ON_CLOSE</span>);
+
+        JPanel jpanel = <span class="kw">new</span> JPanel(<span class="kw">new</span> GridLayout(<span class="dv">0</span>, <span class="dv">1</span>));
+        jpanel.<span class="fu">setBorder</span>(BorderFactory.<span class="fu">createEmptyBorder</span>(
+                                <span class="dv">30</span>, <span class="co">//top</span>
+                                <span class="dv">30</span>, <span class="co">//left</span>
+                                <span class="dv">10</span>, <span class="co">//bottom</span>
+                                <span class="dv">30</span>) <span class="co">//right</span>
+                                );
+
+        jbutton = <span class="kw">new</span> JButton(<span class="st">&quot;I&#39;m a Swing button&quot;</span>);
+        jbutton.<span class="fu">addActionListener</span>(<span class="kw">this</span>);
+        jbutton.<span class="fu">setMnemonic</span>(KeyEvent.<span class="fu">VK_I</span>);
+        jlabel = <span class="kw">new</span> JLabel(labelPrefix + numClicks + <span class="st">&quot;   &quot;</span>);
+
+        jbut2 = <span class="kw">new</span> JButton(<span class="st">&quot;Start Slow Method&quot;</span>);
+        jbut2.<span class="fu">addActionListener</span>(<span class="kw">this</span>);
+        jbut2.<span class="fu">setMnemonic</span>(KeyEvent.<span class="fu">VK_S</span>);
+        jlab2 = <span class="kw">new</span> JLabel(lab2Prefix + numSlowClicks + <span class="st">&quot;   &quot;</span>);
+
+        jpanel.<span class="fu">add</span>(jbutton);
+        jpanel.<span class="fu">add</span>(jlabel);
+        jpanel.<span class="fu">add</span>(jbut2);
+        jpanel.<span class="fu">add</span>(jlab2);
+
+        Container contPane = <span class="kw">this</span>.<span class="fu">getContentPane</span>();
+        contPane.<span class="fu">add</span>(jpanel, BorderLayout.<span class="fu">CENTER</span>);
+
+        <span class="kw">this</span>.<span class="fu">pack</span>();
+    }
+
+    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span>(ActionEvent e) {
+
+        <span class="kw">if</span> (e.<span class="fu">getSource</span>() == jbutton) {
+            numClicks++;
+            jlabel.<span class="fu">setText</span>(labelPrefix + numClicks);
+        }
+        <span class="kw">else</span> <span class="kw">if</span> (e.<span class="fu">getSource</span>() == jbut2) {
+            <span class="fu">slowMethod</span>(<span class="dv">10</span>);
+            numSlowClicks++;
+            jlab2.<span class="fu">setText</span>(lab2Prefix + numSlowClicks);
+        }
+    }
+
+    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">slowMethod</span>(<span class="dt">int</span> sec) {
+        <span class="kw">try</span> {
+            Thread.<span class="fu">sleep</span>(<span class="dv">1000</span> * sec);
+        }
+        <span class="kw">catch</span>(InterruptedException ie) {
+            ie.<span class="fu">printStackTrace</span>();
+        }
+    }
+
+    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(String[] args) <span class="kw">throws</span> Exception {
+        <span class="co">//UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());</span>
+        <span class="co">//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());</span>
+        <span class="co">//UIManager.setLookAndFeel(&quot;com.sun.java.swing.plaf.motif.MotifLookAndFeel&quot;);</span>
+        UIManager.<span class="fu">setLookAndFeel</span>(<span class="st">&quot;com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel&quot;</span>);
+        <span class="co">//UIManager.setLookAndFeel(&quot;com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel&quot;);</span>
+
+        javax.<span class="fu">swing</span>.<span class="fu">SwingUtilities</span>.<span class="fu">invokeLater</span>(<span class="kw">new</span> Runnable() {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {
+                <span class="kw">new</span> <span class="fu">SwingApplication</span>().<span class="fu">setVisible</span>(<span class="kw">true</span>);
+            }
+        });
+
+    } <span class="co">// end method main()</span>
+} <span class="co">// end class</span></code></pre></div>
+<p>Esaminando il codice di <strong><code>SwingApplication</code></strong> si evince che la gestione degli eventi della GUI, eventi dei due pulsanti, &egrave; <strong>centralizzata</strong>, cio&egrave; &egrave; svolta da un unico oggetto: quello che rappresenta la GUI stessa; tale oggetto &egrave; l'istanza di <strong><code>SwingApplication</code></strong> che &egrave; necessario creare per avviare l'applicazione grafica. Gli eventi associati ai due pulsanti, rappresentati da oggetti di tipo <strong><code>ActionEvent</code></strong>, vengono tutti gestiti da un unico metodo, <code>public void actionPerformed(ActionEvent e)</code>, il quale &egrave; in grado di dedurre quali dei due pulsanti ha generato un dato evento grazie al metodo <code>getSource()</code>. Il seguente diagramma UML cattura in modo compatto quanto appena detto.</p>
+<div class="figure">
+<img src="img/firstArchitecture.svg" alt="First Architecture" />
+<p class="caption">First Architecture</p>
+</div>
+<p><em>Fig.1: Gestione centralizzata degli eventi dei pulsanti in</em> <strong><code>SwingApplication</code></strong>.</p>
+<p>Recentemente si &egrave; diffusa la prassi di gestire gli eventi di un'applicazione grafica tramite oggetti di <strong>classi interne</strong> alla classe principale della GUI. In particolare, ad ogni componente di tipo controllo viene associato un oggetto dedicato alla gestione degli eventi di quel componente; in altri termini l'associazione tra le componenti interattive di una GUI e gli oggetti dedicati alla gestione dei loro eventi &egrave; un'associazione 1 a 1. Quanto segue illustra come &egrave; possibile passare da un <strong>approccio centralizzato</strong> ad un <strong>approccio completamente</strong> distribuito utilizzando oggetti di classi interne anonime. <strong>N.B.</strong>: un approccio distribuito non basato su oggetti di classi interne &egrave; svantaggioso poich&eacute; andrebbe gestito parallelamente il problema dell'accesso alle componenti della classe principale della GUI da parte del codice delle classi (non interne) di tali oggetti.</p>
+<h3 id="gestione-degli-eventi-di-una-gui-svolta-da-un-unico-oggetto-di-una-classe-interna">Gestione degli eventi di una GUI svolta da un unico oggetto di una classe interna</h3>
+<p>Il seguente UML illustra un esempio di <strong>gestione centralizzata</strong> degli eventi di una GUI svolta per&ograve; da un <strong>unico oggetto</strong> di una <strong>classe interna</strong> alla classe <strong><code>SwingApplication</code></strong> denominata <strong><code>EventHandlerGUI</code></strong>. Si ricorda che una classe interna ha piena visibilit&agrave; di tutte le variabile della classe contenitore incluse quelle dichiarate private, mentre non vale il viceversa.</p>
+<div class="figure">
+<img src="img/secondArchitecture.svg" alt="Second Architecture" />
+<p class="caption">Second Architecture</p>
+</div>
+<p><em>Fig.1: Gestione centralizzata degli eventi dei pulsanti mediante un unico oggetto di una classe interna di</em> <strong><code>SwingApplication</code></strong>.</p>
+<p><strong>Domanda</strong>: basandosi sul diagramma UML, modificare il codice della classe <strong><code>SwingApplication</code></strong> in modo tale da ottenere ancora una gestione centralizzata degli eventi svolta per&ograve; da un unico oggetto della classe interna <strong><code>EventHandlerGUI</code></strong>.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> SwingApplication <span class="kw">extends</span> JFrame {
+
+    ...
+    ...
+
+    <span class="kw">public</span> <span class="fu">SwingApplication</span>() {
+        ...
+        ...
+
+        EventHandlerGUI ehGUI = <span class="kw">new</span> <span class="fu">EventHandlerGUI</span>();
+
+        jbutton = <span class="kw">new</span> JButton(<span class="st">&quot;I&#39;m a Swing button&quot;</span>);
+        jbutton.<span class="fu">addActionListener</span>(ehGUI);
+        jbutton.<span class="fu">setMnemonic</span>(KeyEvent.<span class="fu">VK_I</span>);
+        jlabel = <span class="kw">new</span> JLabel(labelPrefix + numClicks + <span class="st">&quot;   &quot;</span>);
+
+        jbut2 = <span class="kw">new</span> JButton(<span class="st">&quot;Start Slow Method&quot;</span>);
+        jbut2.<span class="fu">addActionListener</span>(ehGUI);
+        jbut2.<span class="fu">setMnemonic</span>(KeyEvent.<span class="fu">VK_S</span>);
+        jlab2 = <span class="kw">new</span> JLabel(lab2Prefix + numSlowClicks + <span class="st">&quot;   &quot;</span>);
+
+        ...
+        ...
+    }
+
+    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">slowMethod</span>(<span class="dt">int</span> sec) {
+        <span class="kw">try</span> {
+            Thread.<span class="fu">sleep</span>(<span class="dv">1000</span> * sec);
+        }
+        <span class="kw">catch</span>(InterruptedException ie) {
+            ie.<span class="fu">printStackTrace</span>();
+        }
+    }
+
+    <span class="co">/* Classe interna per definire oggetti per la gestione degli eventi dei pulsanti. */</span>
+    <span class="kw">private</span> <span class="kw">class</span> EventHandlerGUI <span class="kw">implements</span> ActionListener {
+
+        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span>(ActionEvent e) {
+
+            <span class="kw">if</span> (e.<span class="fu">getSource</span>() == jbutton) {
+                numClicks++;
+                jlabel.<span class="fu">setText</span>(labelPrefix + numClicks);
+            }
+            <span class="kw">else</span> <span class="kw">if</span> (e.<span class="fu">getSource</span>() == jbut2) {
+                <span class="fu">slowMethod</span>(<span class="dv">10</span>);
+                numSlowClicks++;
+                jlab2.<span class="fu">setText</span>(lab2Prefix + numSlowClicks);
+            }
+        }
+
+    } <span class="co">// end classe interna</span>
+
+    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(String[] args) <span class="kw">throws</span> Exception {
+        ...
+        ...
+
+        javax.<span class="fu">swing</span>.<span class="fu">SwingUtilities</span>.<span class="fu">invokeLater</span>(<span class="kw">new</span> Runnable() {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {
+                <span class="kw">new</span> <span class="fu">SwingApplication</span>().<span class="fu">setVisible</span>(<span class="kw">true</span>);
+            }
+        });
+
+    } <span class="co">// end method main()</span>
+} <span class="co">// end class</span></code></pre></div>
+<h3 id="gestione-decentralizzata-degli-eventi-di-una-gui-mediante-oggetti-di-classi-interne">Gestione decentralizzata degli eventi di una GUI mediante oggetti di classi interne</h3>
+<p><strong>Domanda</strong>: modificare il codice della classe <strong><code>SwingApplication</code></strong> in modo da ottenere una gestione completamente distribuita degli eventi dei pulsanti; in altri termini si deve avere una classe interna per ogni pulsante.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> SwingApplication <span class="kw">extends</span> JFrame {
+
+    ...
+    ...
+
+    <span class="kw">public</span> <span class="fu">SwingApplication</span>() {
+        ...
+        ...
+
+        <span class="co">//EventHandlerGUI ehGUI = new EventHandlerGUI();</span>
+
+        jbutton = <span class="kw">new</span> JButton(<span class="st">&quot;I&#39;m a Swing button&quot;</span>);
+        jbutton.<span class="fu">addActionListener</span>(<span class="kw">new</span> <span class="fu">EventHandlerBut1</span>());
+        jbutton.<span class="fu">setMnemonic</span>(KeyEvent.<span class="fu">VK_I</span>);
+        jlabel = <span class="kw">new</span> JLabel(labelPrefix + numClicks + <span class="st">&quot;   &quot;</span>);
+
+        jbut2 = <span class="kw">new</span> JButton(<span class="st">&quot;Start Slow Method&quot;</span>);
+        jbut2.<span class="fu">addActionListener</span>(<span class="kw">new</span> <span class="fu">EventHandlerBut2</span>());
+        jbut2.<span class="fu">setMnemonic</span>(KeyEvent.<span class="fu">VK_S</span>);
+        jlab2 = <span class="kw">new</span> JLabel(lab2Prefix + numSlowClicks + <span class="st">&quot;   &quot;</span>);
+
+        ...
+        ...
+    }
+
+    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">slowMethod</span>(<span class="dt">int</span> sec) {
+        <span class="kw">try</span> {
+            Thread.<span class="fu">sleep</span>(<span class="dv">1000</span> * sec);
+        }
+        <span class="kw">catch</span>(InterruptedException ie) {
+            ie.<span class="fu">printStackTrace</span>();
+        }
+    }
+
+    <span class="co">/* Classe interna per definire oggetti per la gestione degli eventi del pulsante jbut1. */</span>
+    <span class="kw">private</span> <span class="kw">class</span> EventHandlerBut1 <span class="kw">implements</span> ActionListener {
+
+        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span>(ActionEvent e) {
+            numClicks++;
+            jlabel.<span class="fu">setText</span>(labelPrefix + numClicks);
+        }
+
+    } <span class="co">// end classe interna</span>
+
+    <span class="co">/* Classe interna per definire oggetti per la gestione degli eventi del pulsante jbut2. */</span>
+    <span class="kw">private</span> <span class="kw">class</span> EventHandlerBut2 <span class="kw">implements</span> ActionListener {
+
+        <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span>(ActionEvent e) {
+            <span class="fu">slowMethod</span>(<span class="dv">10</span>);
+            numSlowClicks++;
+            jlab2.<span class="fu">setText</span>(lab2Prefix + numSlowClicks);
+        }
+
+    } <span class="co">// end classe interna</span>
+
+    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(String[] args) <span class="kw">throws</span> Exception {
+        ...
+        ...
+
+        javax.<span class="fu">swing</span>.<span class="fu">SwingUtilities</span>.<span class="fu">invokeLater</span>(<span class="kw">new</span> Runnable() {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {
+                <span class="kw">new</span> <span class="fu">SwingApplication</span>().<span class="fu">setVisible</span>(<span class="kw">true</span>);
+            }
+        });
+
+    } <span class="co">// end method main()</span>
+} <span class="co">// end class</span></code></pre></div>
+<p>Le classi interne possono essere anche definite all'interno del corpo di un metodo, in tal caso si parla di <strong>classi interne locali ad un metodo</strong>.</p>
+<p><strong>Domanda</strong>: modificare il codice precedente introducendo due metodi privati <code>eventHandlerBut1()</code> e <code>eventHandlerBut2()</code> e spostando le precedenti classi interne all'interno del corpo di tali metodi, ottenendo pertanto due classi interne locali ad un metodo.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> SwingApplication <span class="kw">extends</span> JFrame {
+
+    ...
+    ...
+
+    <span class="kw">public</span> <span class="fu">SwingApplication</span>() {
+        ...
+        ...
+
+        jbutton = <span class="kw">new</span> JButton(<span class="st">&quot;I&#39;m a Swing button&quot;</span>);
+        jbutton.<span class="fu">addActionListener</span>(<span class="fu">eventHandlerBut1</span>());
+        jbutton.<span class="fu">setMnemonic</span>(KeyEvent.<span class="fu">VK_I</span>);
+        jlabel = <span class="kw">new</span> JLabel(labelPrefix + numClicks + <span class="st">&quot;   &quot;</span>);
+
+        jbut2 = <span class="kw">new</span> JButton(<span class="st">&quot;Start Slow Method&quot;</span>);
+        jbut2.<span class="fu">addActionListener</span>(<span class="fu">eventHandlerBut2</span>());
+        jbut2.<span class="fu">setMnemonic</span>(KeyEvent.<span class="fu">VK_S</span>);
+        jlab2 = <span class="kw">new</span> JLabel(lab2Prefix + numSlowClicks + <span class="st">&quot;   &quot;</span>);
+
+        ...
+        ...
+    }
+
+    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">slowMethod</span>(<span class="dt">int</span> sec) {
+        <span class="kw">try</span> {
+            Thread.<span class="fu">sleep</span>(<span class="dv">1000</span> * sec);
+        }
+        <span class="kw">catch</span>(InterruptedException ie) {
+            ie.<span class="fu">printStackTrace</span>();
+        }
+    }
+
+    <span class="kw">private</span> ActionListener <span class="fu">eventHandlerBut1</span>() {
+        <span class="co">/* classe interna locale al metodo eventHandlerBut1() */</span>
+        <span class="kw">class</span> EventHandlerBut1 <span class="kw">implements</span> ActionListener {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span>(ActionEvent e) {
+                numClicks++;
+                jlabel.<span class="fu">setText</span>(labelPrefix + numClicks);
+            }
+        } <span class="co">// end classe interna</span>
+
+        <span class="kw">return</span> <span class="kw">new</span> <span class="fu">EventHandlerBut1</span>();
+    }
+
+    <span class="kw">private</span> ActionListener <span class="fu">eventHandlerBut2</span>() {
+        <span class="co">/* Classe interna locale al metodo eventHandlerBut2() jbut2. */</span>
+        <span class="kw">class</span> EventHandlerBut2 <span class="kw">implements</span> ActionListener {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span>(ActionEvent e) {
+                <span class="fu">slowMethod</span>(<span class="dv">10</span>);
+                numSlowClicks++;
+                jlab2.<span class="fu">setText</span>(lab2Prefix + numSlowClicks);
+            }
+        } <span class="co">// end classe interna</span>
+
+        <span class="kw">return</span> <span class="kw">new</span> <span class="fu">EventHandlerBut2</span>();
+    }
+
+    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(String[] args) <span class="kw">throws</span> Exception {
+        ...
+        ...
+
+        javax.<span class="fu">swing</span>.<span class="fu">SwingUtilities</span>.<span class="fu">invokeLater</span>(<span class="kw">new</span> Runnable() {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {
+                <span class="kw">new</span> <span class="fu">SwingApplication</span>().<span class="fu">setVisible</span>(<span class="kw">true</span>);
+            }
+        });
+
+    } <span class="co">// end method main()</span>
+} <span class="co">// end class</span></code></pre></div>
+<p>Attribuire un nome ad una classe interna locale ad un metodo privato &egrave; di scarsa utilit&agrave;, il nome della classe &egrave; utilizzabile soltanto all'interno del corpo del metodo. Per agevolare il programmatore, Java permette anche di non specificare il nome della classe interna e prevede una sintassi apposita per definire una classe anonima che implementa una data interfaccia. Nello specifico, la classe ottenuta viene detta <strong>classe interna anonima locale ad un metodo</strong>.</p>
+<p><strong>Domanda</strong>: modificare il codice precedente rimpiazzando le classi interne (locali ad un metodo) con delle classi interne anonime.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> SwingApplication <span class="kw">extends</span> JFrame {
+
+    ...
+    ...
+
+    <span class="kw">public</span> <span class="fu">SwingApplication</span>() {
+        ...
+        ...
+
+    <span class="kw">private</span> ActionListener <span class="fu">eventHandlerBut1</span>() {
+        ActionListener listBut1 = <span class="kw">new</span> ActionListener() {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span>(ActionEvent e) {
+                numClicks++;
+                jlabel.<span class="fu">setText</span>(labelPrefix + numClicks);
+            }
+        };
+        <span class="kw">return</span> listBut1;
+    }
+
+    <span class="kw">private</span> ActionListener <span class="fu">eventHandlerBut2</span>() {
+        ActionListener listBut2 = <span class="kw">new</span> ActionListener() {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span>(ActionEvent e) {
+                <span class="fu">slowMethod</span>(<span class="dv">10</span>);
+                numSlowClicks++;
+                jlab2.<span class="fu">setText</span>(lab2Prefix + numSlowClicks);
+            }
+        };
+        <span class="kw">return</span> listBut2;
+    }
+
+    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(String[] args) <span class="kw">throws</span> Exception {
+        ...
+        ...
+
+        javax.<span class="fu">swing</span>.<span class="fu">SwingUtilities</span>.<span class="fu">invokeLater</span>(<span class="kw">new</span> Runnable() {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {
+                <span class="kw">new</span> <span class="fu">SwingApplication</span>().<span class="fu">setVisible</span>(<span class="kw">true</span>);
+            }
+        });
+
+    } <span class="co">// end method main()</span>
+} <span class="co">// end class</span></code></pre></div>
+<p>Una sintassi pi&ugrave; compatta &egrave; la seguente.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> SwingApplication <span class="kw">extends</span> JFrame {
+
+    ...
+    ...
+
+    <span class="kw">public</span> <span class="fu">SwingApplication</span>() {
+        ...
+        ...
+
+    <span class="kw">private</span> ActionListener <span class="fu">eventHandlerBut1</span>() {
+        <span class="kw">return</span> <span class="kw">new</span> ActionListener() {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span>(ActionEvent e) {
+                numClicks++;
+                jlabel.<span class="fu">setText</span>(labelPrefix + numClicks);
+            }
+        };
+    }
+
+    <span class="kw">private</span> ActionListener <span class="fu">eventHandlerBut2</span>() {
+        <span class="kw">return</span> <span class="kw">new</span> ActionListener() {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span>(ActionEvent e) {
+                <span class="fu">slowMethod</span>(<span class="dv">10</span>);
+                numSlowClicks++;
+                jlab2.<span class="fu">setText</span>(lab2Prefix + numSlowClicks);
+            }
+        };
+    }
+
+    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(String[] args) <span class="kw">throws</span> Exception {
+        ...
+        ...
+
+        javax.<span class="fu">swing</span>.<span class="fu">SwingUtilities</span>.<span class="fu">invokeLater</span>(<span class="kw">new</span> Runnable() {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {
+                <span class="kw">new</span> <span class="fu">SwingApplication</span>().<span class="fu">setVisible</span>(<span class="kw">true</span>);
+            }
+        });
+
+    } <span class="co">// end method main()</span>
+} <span class="co">// end class</span></code></pre></div>
+<p>Una sintassi ancor pi&ugrave; compatta e molto diffusa prevede l'istanziazione dell'oggetto della classe interna anonima <strong>localmente all'argomento</strong> di un <strong>metodo</strong>, cio&egrave; al posto del parametro attuale. In questo caso, l'istanziazione avviene direttamente nell'argomento del metodo <code>addActionListener()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">import java.awt.event.ActionEvent;</span>
+<span class="kw">import java.awt.event.ActionListener;</span>
+<span class="kw">import java.awt.event.KeyEvent;</span>
+<span class="kw">import java.awt.BorderLayout;</span>
+<span class="kw">import java.awt.Container;</span>
+<span class="kw">import java.awt.GridLayout;</span>
+<span class="kw">import javax.swing.BorderFactory;</span>
+<span class="kw">import javax.swing.JFrame;</span>
+<span class="kw">import javax.swing.JPanel;</span>
+<span class="kw">import javax.swing.JButton;</span>
+<span class="kw">import javax.swing.JLabel;</span>
+<span class="kw">import javax.swing.UIManager;</span>
+
+<span class="kw">public</span> <span class="kw">class</span> SwingApplication <span class="kw">extends</span> JFrame {
+    ...
+    ...
+
+    <span class="kw">public</span> <span class="fu">SwingApplication</span>() {
+        ...
+        ...
+
+        jbutton = <span class="kw">new</span> JButton(<span class="st">&quot;I&#39;m a Swing button&quot;</span>);
+        jbutton.<span class="fu">addActionListener</span>(<span class="kw">new</span> ActionListener() {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span>(ActionEvent e) {
+                numClicks++;
+                jlabel.<span class="fu">setText</span>(labelPrefix + numClicks);
+            }
+        });
+        jbutton.<span class="fu">setMnemonic</span>(KeyEvent.<span class="fu">VK_I</span>);
+        jlabel = <span class="kw">new</span> JLabel(labelPrefix + numClicks + <span class="st">&quot;   &quot;</span>);
+
+        jbut2 = <span class="kw">new</span> JButton(<span class="st">&quot;Start Slow Method&quot;</span>);
+        jbut2.<span class="fu">addActionListener</span>(<span class="kw">new</span> ActionListener() {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span>(ActionEvent e) {
+                <span class="fu">slowMethod</span>(<span class="dv">10</span>);
+                numSlowClicks++;
+                jlab2.<span class="fu">setText</span>(lab2Prefix + numSlowClicks);
+            }
+        });
+        jbut2.<span class="fu">setMnemonic</span>(KeyEvent.<span class="fu">VK_S</span>);
+        jlab2 = <span class="kw">new</span> JLabel(lab2Prefix + numSlowClicks + <span class="st">&quot;   &quot;</span>);
+
+        ...
+        ...
+    }
+
+    ...
+    ...
+
+    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(String[] args) <span class="kw">throws</span> Exception {
+        ...
+        ...
+
+        javax.<span class="fu">swing</span>.<span class="fu">SwingUtilities</span>.<span class="fu">invokeLater</span>(<span class="kw">new</span> Runnable() {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {
+                <span class="kw">new</span> <span class="fu">SwingApplication</span>().<span class="fu">setVisible</span>(<span class="kw">true</span>);
+            }
+        });
+
+    } <span class="co">// end method main()</span>
+} <span class="co">// end class</span></code></pre></div>
+<p>L'approccio appena visto &egrave; molto simile a quello utilizzato dal <em>GUI Builder</em> dell'IDE NetBeans, cio&egrave; dal tool di NetBeans che permette di costruire una GUI mediante un approccio completamente grafico, selezionando dapprima le componenti della GUI da una tavolozza, per poi trascinarle e posizionarle sulla canvas nella posizione desiderata.</p>
+<p>Il GUI builder <strong>genera automaticamente</strong> il codice Java corrispondente al layout desiderato e, se richiesto, include anche lo scheletro del codice per la gestione degli eventi. In particolare, per separare il codice generato automaticamente da quello modificabile dal programmatore, inserisce nel corpo del metodo <code>actionPerformed()</code> una chiamata ad un metodo privato. Tale metodo sar&agrave; quello modificabile dal programmatore per implementare la logica di gestione degli eventi desiderata. Il seguente frammento di programma illustra in modo sintetico tale strategia.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">import java.awt.event.ActionEvent;</span>
+<span class="kw">import java.awt.event.ActionListener;</span>
+<span class="kw">import java.awt.event.KeyEvent;</span>
+<span class="kw">import java.awt.BorderLayout;</span>
+<span class="kw">import java.awt.Container;</span>
+<span class="kw">import java.awt.GridLayout;</span>
+<span class="kw">import javax.swing.BorderFactory;</span>
+<span class="kw">import javax.swing.JFrame;</span>
+<span class="kw">import javax.swing.JPanel;</span>
+<span class="kw">import javax.swing.JButton;</span>
+<span class="kw">import javax.swing.JLabel;</span>
+<span class="kw">import javax.swing.UIManager;</span>
+
+<span class="kw">public</span> <span class="kw">class</span> SwingApplication <span class="kw">extends</span> JFrame {
+    ...
+    ...
+
+    <span class="kw">public</span> <span class="fu">SwingApplication</span>() {
+        ...
+        ...
+
+        jbutton = <span class="kw">new</span> JButton(<span class="st">&quot;I&#39;m a Swing button&quot;</span>);
+        jbutton.<span class="fu">addActionListener</span>(<span class="kw">new</span> ActionListener() {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span>(ActionEvent e) {
+                <span class="fu">handleBut1</span>();
+            }
+        });
+        jbutton.<span class="fu">setMnemonic</span>(KeyEvent.<span class="fu">VK_I</span>);
+        jlabel = <span class="kw">new</span> JLabel(labelPrefix + numClicks + <span class="st">&quot;   &quot;</span>);
+
+        jbut2 = <span class="kw">new</span> JButton(<span class="st">&quot;Start Slow Method&quot;</span>);
+        jbut2.<span class="fu">addActionListener</span>(<span class="kw">new</span> ActionListener() {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">actionPerformed</span>(ActionEvent e) {
+                <span class="fu">handleBut2</span>();
+            }
+        });
+        jbut2.<span class="fu">setMnemonic</span>(KeyEvent.<span class="fu">VK_S</span>);
+        jlab2 = <span class="kw">new</span> JLabel(lab2Prefix + numSlowClicks + <span class="st">&quot;   &quot;</span>);
+
+        ...
+        ...
+    }
+
+    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">handleBut1</span>() {
+        <span class="kw">this</span>.<span class="fu">numClicks</span>++;
+        <span class="kw">this</span>.<span class="fu">jlabel</span>.<span class="fu">setText</span>(labelPrefix + <span class="kw">this</span>.<span class="fu">numClicks</span>);
+    }
+
+    <span class="kw">private</span> <span class="dt">void</span> <span class="fu">handleBut2</span>() {
+        <span class="fu">slowMethod</span>(<span class="dv">10</span>);
+        <span class="kw">this</span>.<span class="fu">numSlowClicks</span>++;
+        <span class="kw">this</span>.<span class="fu">jlab2</span>.<span class="fu">setText</span>(lab2Prefix + <span class="kw">this</span>.<span class="fu">numSlowClicks</span>);
+    }
+    ...
+    ...
+
+    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(String[] args) <span class="kw">throws</span> Exception {
+        ...
+        ...
+
+        javax.<span class="fu">swing</span>.<span class="fu">SwingUtilities</span>.<span class="fu">invokeLater</span>(<span class="kw">new</span> Runnable() {
+            <span class="kw">public</span> <span class="dt">void</span> <span class="fu">run</span>() {
+                <span class="kw">new</span> <span class="fu">SwingApplication</span>().<span class="fu">setVisible</span>(<span class="kw">true</span>);
+            }
+        });
+
+    } <span class="co">// end method main()</span>
+} <span class="co">// end class</span></code></pre></div>
+<h3 id="gestione-degli-eventi-di-una-gui-tramite-lambda-expressions">Gestione degli eventi di una GUI tramite Lambda Expressions</h3>
+<p>Una delle pi&ugrave; importanti innovazioni introdotte nella versione 8 di Java &egrave; il supporto alla <strong><em>programmazione funzionale</em></strong>, e in particolare al cosiddetto <strong><em>lambda calcolo</em></strong>.</p>
+<p>L'idea di base della programmazione funzionale &egrave; quella di ricondurre una generica computazione alla valutazione di determinate funzioni matematiche anonime opportunamente combinate. Intuitivamente, una funzione matematica anonima &egrave; una funzione descrivibile da una sintassi del tipo <em>x -&gt; f(x)</em>; ad esempio, una funzione logaritmica &egrave; esprimibile come <em>x -&gt; log(x)</em>. L'anonimato consiste nel fatto che non &egrave; necessario assegnare un nome a queste trasformazioni, ma &egrave; sufficiente avere una sintassi che stabilisca qual &egrave; l'input e qual &egrave; il tipo trasformazione da applicare all'input per ottenere l'output.</p>
+<p>Una trattazione anche semplificata della programmazione funzionale va oltre gli scopi di questo insegnamento, ci limiteremo per&ograve; a fornire alcuni concetti che hanno un impatto significativo nello sviluppo delle applicazioni grafiche.</p>
+<p>In Java 8 (e successive versioni), il supporto alla programmazione funzionale &egrave; offerto dalle cosiddette <strong><em>Lambda Expressions</em></strong>. Una <strong><em>lambda expression</em></strong> &egrave; definibile come una funzione (in senso matematico) anonima, priva cio&egrave; di una dichiarazione che le assegni un nome, che permette di scrivere codice funzionale. In altri termini &egrave; possibile passare una funzione ad un'altra funzione (nel senso di composizione di funzioni), restituire funzioni da funzioni e, in generale, combinare due o pi&ugrave; funzioni per realizzare una nuova funzione. Come si vedr&agrave;, per quanto concerne lo sviluppo di interfacce grafiche interattive, la principale utilit&agrave; delle lambda expression &egrave; quella di poter scrivere un codice snello e facile da manutenere. In particolare, l'utilizzo delle lambda expression &egrave; consigliabile in tutte quelle situazioni in cui la logica dell'applicazione richiede il passaggio di un &quot;comportamento&quot; ad un metodo, piuttosto che il passaggio di dati generici. Ad esempio, facendo riferimento al codice della classe <strong><code>SwingApplication</code></strong>, e in particolare al metodo <code>addActionListener()</code>, ci&ograve; che in realt&agrave; si desidera passare all'argomento di questo metodo &egrave; il &quot;comportamento&quot; che deve essere innescato in risposta all'evento di click del pulsante. Se tale comportamento &egrave; esprimibile tramite una funzione anonima, allora &egrave; possibile utilizzare una lambda expression in luogo della soluzione adottata in <strong><code>SwingApplication</code></strong>. Come regola pratica, possiamo dire che una lambda expression &egrave; utilizzabile tutte quelle volte che</p>
+<ol style="list-style-type: lower-roman">
+<li>viene passato un &quot;comportamento&quot; ad un metodo; e</li>
+<li>tale comportamento &egrave; incapsulato all'interno di un oggetto di una classe anonima che implementa un'<strong><em>interfaccia funzionale</em></strong>;</li>
+</ol>
+<p>dove per <strong><em>interfaccia funzionale</em></strong> si intende un'interfaccia che presenta soltanto un metodo astratto. Si osservi che si tratta esattamente della situazione esaminata nella gestione decentralizzata degli eventi dei pulsanti in <strong><code>SwingApplication</code></strong>. Infatti, il comportamento descritto dal metodo <code>actionPerformed()</code> &egrave; incapsulato in un oggetto di una classe (interna) anonima che implementa l'interfaccia <em><code>ActionListener</code></em>, e tale interfaccia &egrave; a tutti gli effetti un'interfaccia funzionale, in quanto presenta un solo metodo astratto: il metodo <code>actionPerformed()</code>.</p>
+<p>Si noti inoltre che nel codice di una classe anonima finalizzata soltanto all'implementazione di un'interfaccia funzionale (come ad esempio il codice della classe anonima nell'argomento di <code>addActionListener()</code>), il nome del metodo (unico) dell'interfaccia (nel nostro esempio <code>actionPerformed()</code>) pu&ograve; anche essere omesso, in quanto &egrave; deducibile in modo implicito. In definitiva, stiamo dicendo che la sintassi &quot;ingombrante&quot; vista per la gestione degli eventi dei pulsanti in <strong><code>SwingApplication</code></strong> &egrave; sostituibile dalla seguente, molto pi&ugrave; snella, che fa uso delle lambda expression</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">jbutton.<span class="fu">addActionListener</span>(
+    (ActionEvent e) -&gt; <span class="fu">handleBut1</span>()
+);
+
+...
+
+jbut2.<span class="fu">addActionListener</span>(
+    (ActionEvent e) -&gt; <span class="fu">handleBut2</span>()
+);</code></pre></div>
+<p>Per una descrizione pi&ugrave; approfondita delle lambda expressions, e in particolare della loro sintassi, si rimanda al tutorial Java <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html">Lambda Expressions</a>.</p>
+<p>In realt&agrave;, le lambda expressions accettano una sintassi ancor pi&ugrave; snella. Infatti, oltre ad essere anonime (quindi oltre ad evitare di riscrivere il nome dell'unico metodo astratto dell'interfaccia funzionale) conoscono implicitamente anche il(i) tipo(i) del(i) parametro(i) formale(i) del metodo dell'interfaccia funzionale, quindi non &egrave; strettamente necessario riscrivere tale(i) tipo(i), ma &egrave; sufficiente riportare soltanto il(i) nome(i) di tale(i) parametro(i) formale(i), inserendo eventualmente delle virgole separatrici nel caso di due o pi&ugrave; parametri. Quindi, nel nostro caso, la seguente sintassi &egrave; accetta.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">jbutton.<span class="fu">addActionListener</span>(
+    e -&gt; <span class="fu">handleBut1</span>()
+);
+
+...
+
+jbut2.<span class="fu">addActionListener</span>(
+    e -&gt; <span class="fu">handleBut2</span>()
+);</code></pre></div>
+<p>Ovviamente, il nome del parametro formale pu&ograve; anche differire da quello riportato nella definizione dell'interfaccia funzionale, cio&egrave; in <code>actionPerformed(ActionEvent e)</code> di <em><code>ActionListener</code></em>, quindi anche la seguente sintassi, con nomi pi&ugrave; espressivi, &egrave; accettata.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">jbutton.<span class="fu">addActionListener</span>(
+    event -&gt; <span class="fu">handleBut1</span>()
+);
+
+...
+
+jbut2.<span class="fu">addActionListener</span>(
+    event -&gt; <span class="fu">handleBut2</span>()
+);</code></pre></div>
+<p>Inoltre, qualora si vuole evitare di definire dei metodi privati di &quot;appoggio&quot;, quali <code>handleBut1()</code> e <code>handleBut2()</code>, preferendo di riportare per esteso il codice di tali metodi direttamente nell'espressione delle lambda expressions corrispondenti, si pu&ograve; adottare la seguente sintassi.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">jbutton.<span class="fu">addActionListener</span>(
+    event -&gt; {
+        <span class="kw">this</span>.<span class="fu">numClicks</span>++;
+        <span class="kw">this</span>.<span class="fu">jlabel</span>.<span class="fu">setText</span>(labelPrefix + <span class="kw">this</span>.<span class="fu">numClicks</span>);
+    }
+);
+
+...
+
+jbut2.<span class="fu">addActionListener</span>(
+    event -&gt; {
+        <span class="fu">slowMethod</span>(<span class="dv">10</span>);
+        <span class="kw">this</span>.<span class="fu">numSlowClicks</span>++;
+        <span class="kw">this</span>.<span class="fu">jlab2</span>.<span class="fu">setText</span>(lab2Prefix + <span class="kw">this</span>.<span class="fu">numSlowClicks</span>);
+    }
+);</code></pre></div>
+
+<!-- [end] PANDOC OUTPUT
+================================================== -->
+
+</body>
+</html>
