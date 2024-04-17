@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--<html lang="en">-->
+<html lang="it">
+<head>
+	<!--<meta charset="utf-8">-->
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="description" content="Esercitazione di Elementi di Informatica Grafica - Dipartimento d'Ingegneria - Universit&agrave; degli Studi di Perugia">
+	<meta name="author" content="Luca Grilli">
+	
+	<title>Esercitazione di Elementi di Informatica Grafica</title>
+	<style>
+		#preview-box {
+			background-color: rgba(1,1,1,0.1);
+			padding: 1px 10px;
+			border-radius: 10px;
+		}
+	</style>
+	<link id="linkstyle" rel="stylesheet" href="css/markdown.css">
+</head>
+
+<body>
+
+<!-- [start] SELETTORE STILE
+================================================== -->
+<strong>Scegli un altro foglio di stile</strong>
+<div id="preview-box">
+		<select style="width:100%" id="themes">
+			<option value="css/markdown.css">markdown</option>
+			<option value="css/markdown-alt.css">markdown-alt</option>
+			<option value="css/markdown-luca.css">markdown-luca</option>
+			<option value="css/markdown1.css">markdown1</option>
+			<option value="css/markdown2.css">markdown2</option>
+			<option value="css/markdown3.css">markdown3</option>
+			<option value="css/markdown4.css">markdown4</option>
+			<option value="css/markdown5.css">markdown5</option>
+			<option value="css/markdown6.css">markdown6</option>
+			<option value="css/markdown7.css">markdown7</option>
+			<option value="css/markdown8.css">markdown8</option>
+			<option value="css/markdown9.css">markdown9</option>
+			<option value="css/markdown10.css">markdown10</option>
+			<option value="css/avenir-white.css">avenir-white</option>
+			<option value="css/foghorn.css">foghorn</option>
+			<option value="css/screen.css">screen</option>
+			<option value="css/swiss.css">swiss</option>
+			<option value="css/pandoc-default.css">pandoc-default</option>
+			<option value="css/pandoc-bigger-font-code.css">pandoc-bigger-font-code</option>
+			<option value="css/splendor.css">splendor</option>
+		</select>
+</div>
+<script>
+	var linkstyle = document.getElementById('linkstyle');
+	var themes = document.getElementById('themes');
+	themes.onchange = function(e) {
+		linkstyle.href = themes.value;
+	};
+</script>
+<!-- [end] SELETTORE STILE
+================================================== -->
+
+<!-- [start] PANDOC OUTPUT
+================================================== -->
+
+
+<h1 id="gestione-di-file-di-configurazione">Gestione di File di Configurazione</h1>
+<h3 id="la-classe-java.util.properties">La classe <code>java.util.</code><strong><code>Properties</code></strong></h3>
+<p>Tipicamente l'implementazione di un software presenta sempre un certo insieme di parametri il cui valore deve poter essere impostato dall'utente o dall'amministratore. Tali parametri, detti <em>parametri di configurazione</em>, vengono inseriti all'interno di uno o pi&ugrave; <em>file di configurazione</em> i quali vengono letti all'avvio del software in questione e mantenuti in memoria fino alla sua chiusura. Generalmente i file di configurazione sono di tipo testuale e sono concepiti in modo da essere facilmente leggibili e modificabili dall'utente. Sebbene siano previsti svariati formati testuali, <em>csv</em>, <em>xml</em>, <em>json</em>, ..., molto spesso i file di configurazione hanno una struttura molto semplice del tipo riportato di seguito:</p>
+<pre class="txt"><code># An example of a simple configuration file
+# All lines starting with a predefined character, such as &#39;#&#39;, are skipped, that is these lines are considered as line comments
+
+# Here you can find a description of the following configuration parameter nameOfParameter1
+# In particular the possible values for this parameter are described along with their meanings
+nameOfParameter1 = valueOfParameter1
+
+...
+
+nameOfParameter2 = valueOfParameter2
+
+...
+
+nameOfParameterN = valueOfParameterN
+</code></pre>
+<p>La classe <code>java.util.</code><strong><code>Properties</code></strong>, inclusa nelle API Java, &egrave; una classe particolarmente utile per quanto concerne la gestione dei file di configurazione.</p>
+<div class="figure">
+<img src="img/Properties.svg" alt="java.util.Properties" />
+<p class="caption">java.util.Properties</p>
+</div>
+<p><em>Fig.1: La classe</em> <code>java.util.</code><strong><code>Properties</code></strong>.</p>
+<p>Infatti, in base a quanto specificato nella documentazione, il metodo <code>load()</code> permette di passare uno stream di input connesso ad un file di configurazione (nel formato testuale appena descritto) e di popolare una struttura dati di tipo <code>java.util.</code><strong><code>Hashtable</code></strong> per memorizzare tutte le coppie <em>parameterName=parameterValue</em>. Per ottenere il valore dell'n-esimo parametro di configurazione sar&agrave; sufficiente invocare il metodo <code>getProperty(String key)</code> specificando quale stringa chiave quella che identifica il parametro di configurazione in questione.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">    ...
+
+    BufferedReader buffRead = <span class="kw">new</span> BufferedReader(
+        <span class="kw">new</span> InputStreamReader(<span class="kw">new</span> FileInputStream(configFileName), <span class="st">&quot;ISO-8859-1&quot;</span>));
+
+    ...
+
+    Properties properties = <span class="kw">new</span> Properties();
+    properties.<span class="fu">load</span>(buffRead);
+
+    ...
+
+    System.<span class="fu">out</span>.<span class="fu">println</span>(properties.<span class="fu">getProperty</span>(<span class="st">&quot;parameterName1&quot;</span>));</code></pre></div>
+<p>Molto spesso &egrave; conveniente assicurarsi che esista un <strong>unico</strong> oggetto contenente i parametri di configurazione, in questo modo si riduce l'occupazione di memoria e, soprattutto, si evita il rischio di avere due oggetti <strong><code>Properties</code></strong> in cui lo stesso parametro assume valori diversi. Si tenga presente che spesso l'utente deve poter modificare i parametri di configurazione direttamente dalla GUI del software, ci&ograve; comporta che i valori dei parametri in <strong><code>Properties</code></strong> devono essere salvati sul file di configurazione.</p>
+<p><strong>Domanda</strong>: come si pu&ograve; procedere per assicurarsi che esista un'unica istanza di un oggetto contenente tutti i parametri di configurazione?</p>
+<p><strong>Suggerimento</strong>: introdurre una classe <strong><code>Config</code></strong> rappresentante un wrapper di <strong><code>Properties</code></strong> e assicurarsi che esista un'unica istanza di <strong><code>Config</code></strong>.</p>
+<p>Utilizzando l'editor VioletUML provare a definire il diagramma UML di una classe <strong><code>Config</code></strong> di cui pu&ograve; esistere una sola istanza; l'istanza di <strong><code>Config</code></strong> deve inoltre incapsulare un oggetto di tipo <strong><code>Properties</code></strong> e deve prevedere dei metodi che permettano di accedere ai valori dei parametri di un file di configurazione.</p>
+<p><strong>Domanda</strong>: implementare una possibile classe <strong><code>Config</code></strong> e una classe di test <strong><code>TestConfig</code></strong> che permetta di verificarne il corretto funzionamento.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">import java.io.BufferedReader;</span>
+<span class="kw">import java.io.FileInputStream;</span>
+<span class="kw">import java.io.InputStreamReader;</span>
+<span class="kw">import java.io.FileNotFoundException;</span>
+<span class="kw">import java.io.IOException;</span>
+<span class="kw">import java.util.Properties;</span>
+
+<span class="kw">public</span> <span class="kw">class</span> Config {
+
+    <span class="co">//INSTANCE FIELDS</span>
+    <span class="kw">private</span> Properties properties;
+
+
+
+}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> TestConfig {
+
+    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(String[] args) {
+    
+    
+    }
+}</code></pre></div>
+<p><strong>Domanda</strong>: assumendo che la posizione relativa del file di configurazione <em>config.txt</em> rispetto al bytecode <strong><code>Config.class</code></strong> sia nota a priori, &egrave; possibile ottenere a <strong>run-time</strong> il percorso completo del file di configurazione evitando di dover ricompilare ogni volta il codice sorgente? In case affermativo mostrare le modifiche che &egrave; necessario apportare al codice precedente.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">
+
+
+</code></pre></div>
+
+<!-- [end] PANDOC OUTPUT
+================================================== -->
+
+</body>
+</html>

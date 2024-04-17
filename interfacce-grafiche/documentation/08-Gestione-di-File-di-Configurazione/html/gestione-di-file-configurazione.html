@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<!--<html lang="en">-->
+<html lang="it">
+<head>
+	<!--<meta charset="utf-8">-->
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="description" content="Esercitazione di Elementi di Informatica Grafica - Dipartimento d'Ingegneria - Universit&agrave; degli Studi di Perugia">
+	<meta name="author" content="Luca Grilli">
+	
+	<title>Esercitazione di Elementi di Informatica Grafica</title>
+	<style>
+		#preview-box {
+			background-color: rgba(1,1,1,0.1);
+			padding: 1px 10px;
+			border-radius: 10px;
+		}
+	</style>
+	<link id="linkstyle" rel="stylesheet" href="css/markdown.css">
+</head>
+
+<body>
+
+<!-- [start] SELETTORE STILE
+================================================== -->
+<strong>Scegli un altro foglio di stile</strong>
+<div id="preview-box">
+		<select style="width:100%" id="themes">
+			<option value="css/markdown.css">markdown</option>
+			<option value="css/markdown-alt.css">markdown-alt</option>
+			<option value="css/markdown-luca.css">markdown-luca</option>
+			<option value="css/markdown1.css">markdown1</option>
+			<option value="css/markdown2.css">markdown2</option>
+			<option value="css/markdown3.css">markdown3</option>
+			<option value="css/markdown4.css">markdown4</option>
+			<option value="css/markdown5.css">markdown5</option>
+			<option value="css/markdown6.css">markdown6</option>
+			<option value="css/markdown7.css">markdown7</option>
+			<option value="css/markdown8.css">markdown8</option>
+			<option value="css/markdown9.css">markdown9</option>
+			<option value="css/markdown10.css">markdown10</option>
+			<option value="css/avenir-white.css">avenir-white</option>
+			<option value="css/foghorn.css">foghorn</option>
+			<option value="css/screen.css">screen</option>
+			<option value="css/swiss.css">swiss</option>
+			<option value="css/pandoc-default.css">pandoc-default</option>
+			<option value="css/pandoc-bigger-font-code.css">pandoc-bigger-font-code</option>
+			<option value="css/splendor.css">splendor</option>
+		</select>
+</div>
+<script>
+	var linkstyle = document.getElementById('linkstyle');
+	var themes = document.getElementById('themes');
+	themes.onchange = function(e) {
+		linkstyle.href = themes.value;
+	};
+</script>
+<!-- [end] SELETTORE STILE
+================================================== -->
+
+<!-- [start] PANDOC OUTPUT
+================================================== -->
+
+
+<h1 id="gestione-di-file-di-configurazione">Gestione di File di Configurazione</h1>
+<h3 id="la-classe-java.util.properties">La classe <code>java.util.</code><strong><code>Properties</code></strong></h3>
+<p>Tipicamente l'implementazione di un software presenta sempre un certo insieme di parametri il cui valore deve poter essere impostato dall'utente o dall'amministratore. Tali parametri, detti <em>parametri di configurazione</em>, vengono inseriti all'interno di uno o pi&ugrave; <em>file di configurazione</em> i quali vengono letti all'avvio del software in questione e mantenuti in memoria fino alla sua chiusura. Generalmente i file di configurazione sono di tipo testuale e sono concepiti in modo da essere facilmente leggibili e modificabili dall'utente. Sebbene siano previsti svariati formati testuali, <em>csv</em>, <em>xml</em>, <em>json</em>, ..., molto spesso i file di configurazione hanno una struttura molto semplice del tipo riportato di seguito:</p>
+<pre class="txt"><code># An example of a simple configuration file
+# All lines starting with a predefined character, such as &#39;#&#39;, are skipped, that is these lines are considered as line comments
+
+# Here you can find a description of the following configuration parameter nameOfParameter1
+# In particular the possible values for this parameter are described along with their meanings
+nameOfParameter1 = valueOfParameter1
+
+...
+
+nameOfParameter2 = valueOfParameter2
+
+...
+
+nameOfParameterN = valueOfParameterN
+</code></pre>
+<p>La classe <code>java.util.</code><strong><code>Properties</code></strong>, inclusa nelle API Java, &egrave; una classe particolarmente utile per quanto concerne la gestione dei file di configurazione.</p>
+<div class="figure">
+<img src="img/Properties.svg" alt="java.util.Properties" />
+<p class="caption">java.util.Properties</p>
+</div>
+<p><em>Fig.1: La classe</em> <code>java.util.</code><strong><code>Properties</code></strong>.</p>
+<p>Infatti, in base a quanto specificato nella documentazione, il metodo <code>load()</code> permette di passare uno stream di input connesso ad un file di configurazione (nel formato testuale appena descritto) e di popolare una struttura dati di tipo <code>java.util.</code><strong><code>Hashtable</code></strong> per memorizzare tutte le coppie <em>parameterName=parameterValue</em>. Per ottenere il valore dell'n-esimo parametro di configurazione sar&agrave; sufficiente invocare il metodo <code>getProperty(String key)</code> specificando quale stringa chiave quella che identifica il parametro di configurazione in questione.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java">    ...
+
+    BufferedReader buffRead = <span class="kw">new</span> BufferedReader(
+        <span class="kw">new</span> InputStreamReader(<span class="kw">new</span> FileInputStream(configFileName), <span class="st">&quot;ISO-8859-1&quot;</span>));
+
+    ...
+
+    Properties properties = <span class="kw">new</span> Properties();
+    properties.<span class="fu">load</span>(buffRead);
+
+    ...
+
+    System.<span class="fu">out</span>.<span class="fu">println</span>(properties.<span class="fu">getProperty</span>(<span class="st">&quot;parameterName1&quot;</span>));</code></pre></div>
+<p>Molto spesso &egrave; conveniente assicurarsi che esista un <strong>unico</strong> oggetto contenente i parametri di configurazione, in questo modo si riduce l'occupazione di memoria e, soprattutto, si evita il rischio di avere due oggetti <strong><code>Properties</code></strong> in cui lo stesso parametro assume valori diversi. Si tenga presente che spesso l'utente deve poter modificare i parametri di configurazione direttamente dalla GUI del software, ci&ograve; comporta che i valori dei parametri in <strong><code>Properties</code></strong> devono essere salvati sul file di configurazione.</p>
+<p><strong>Domanda</strong>: come si pu&ograve; procedere per assicurarsi che esista un'unica istanza di un oggetto contenente tutti i parametri di configurazione?</p>
+<p><strong>Suggerimento</strong>: introdurre una classe <strong><code>Config</code></strong> rappresentante un wrapper di <strong><code>Properties</code></strong> e assicurarsi che esista un'unica istanza di <strong><code>Config</code></strong>.</p>
+<p><strong>Risposta</strong>: di seguito viene riportato il diagramma UML che illustra la struttura della classe <strong><code>Config</code></strong>. Da tale diagramma si evince che pu&ograve; esistere solo un'istanza di tale classe. Tale istanza &egrave; ottenibile invocando il metodo statico <code>getInstance()</code>.</p>
+<div class="figure">
+<img src="img/Config.svg" alt="Config" />
+<p class="caption">Config</p>
+</div>
+<p><em>Fig.2: Utilizzo del Design Pattern Singleton nella gestione di un file di configurazione.</em></p>
+<p><strong>Nota</strong>: la necessit&agrave; di assicurarsi che esista un'unica istanza di una data classe &egrave; estremamente ricorrente, la soluzione appena proposta &egrave; una di quelle pi&ugrave; diffuse in ingegneria del software. Nello specifico tale soluzione costituisce la versione pi&ugrave; comune del <em>Design Pattern Singleton</em>. Si ricorda che i <em>Design Patterns</em> descrivono &quot;situazioni&quot; progettuali ricorrenti includendo delle soluzioni ormai consolidate che devono soltanto essere calate nel contesto del problema in esame.</p>
+<p>Di seguito viene riportata una possibile implementazione del singleton <strong><code>Config</code></strong> che sfrutta la classe <strong><code>Properties</code></strong> per gestire le informazioni del seguente file di configurazione:</p>
+<pre class="txt"><code># A list of colors for my application
+backgroundColor = blue
+lineColor = green
+padColor = black
+starColor = yellow
+
+# The parameter &quot;level&quot; can be one of the following: {&quot;basic&quot;, &quot;normal&quot;, &quot;difficult&quot;}
+level = difficult</code></pre>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">import java.io.BufferedReader;</span>
+<span class="kw">import java.io.FileInputStream;</span>
+<span class="kw">import java.io.InputStreamReader;</span>
+<span class="kw">import java.io.FileNotFoundException;</span>
+<span class="kw">import java.io.IOException;</span>
+<span class="kw">import java.util.Properties;</span>
+<span class="kw">import javax.swing.JOptionPane;</span>
+
+<span class="kw">public</span> <span class="kw">class</span> Config {
+
+    <span class="co">//STATIC FIELDS</span>
+    <span class="kw">private</span> <span class="dt">static</span> Config config = <span class="kw">null</span>;
+
+    <span class="co">//INSTANCE FIELDS</span>
+    <span class="kw">private</span> Properties properties;
+    
+    <span class="kw">private</span> <span class="fu">Config</span>() {
+        BufferedReader buffRead = <span class="kw">null</span>;
+        <span class="kw">try</span> {
+            buffRead = <span class="kw">new</span> BufferedReader(
+                <span class="kw">new</span> InputStreamReader(
+                    <span class="kw">new</span> FileInputStream(<span class="st">&quot;/home/luca/Scrivania/config.txt&quot;</span>),<span class="st">&quot;ISO-8859-1&quot;</span>));
+            
+            <span class="kw">this</span>.<span class="fu">properties</span> = <span class="kw">new</span> Properties();
+            <span class="kw">this</span>.<span class="fu">properties</span>.<span class="fu">load</span>(buffRead);
+        }
+        <span class="kw">catch</span>(FileNotFoundException fnfe) {
+            JOptionPane.<span class="fu">showMessageDialog</span>(<span class="kw">null</span>,
+                        <span class="st">&quot;Configuration file not found, the program will be closed.&quot;</span>,
+                        <span class="st">&quot;Serious ERROR&quot;</span>,
+                        JOptionPane.<span class="fu">ERROR_MESSAGE</span>);
+            System.<span class="fu">exit</span>(-<span class="dv">1</span>);
+        }
+        <span class="kw">catch</span>(IOException ioe) {
+            JOptionPane.<span class="fu">showMessageDialog</span>(<span class="kw">null</span>,
+                        <span class="st">&quot;Unable to read the configuration file, the program will be closed.&quot;</span>,
+                        <span class="st">&quot;Serious ERROR&quot;</span>,
+                        JOptionPane.<span class="fu">ERROR_MESSAGE</span>);
+            System.<span class="fu">exit</span>(-<span class="dv">1</span>);
+        }
+        <span class="kw">finally</span> {
+            <span class="kw">try</span> {
+                <span class="kw">if</span> (buffRead != <span class="kw">null</span>)
+                    buffRead.<span class="fu">close</span>();
+            }
+            <span class="kw">catch</span>(IOException ioe) {
+                ioe.<span class="fu">printStackTrace</span>();
+            }
+        } <span class="co">// end finally</span>
+    } <span class="co">// end constructor</span>
+
+    <span class="co">//INSTANCE METHODS</span>
+    <span class="kw">public</span> String <span class="fu">getBackgroundColor</span>() {
+        <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">properties</span>.<span class="fu">getProperty</span>(<span class="st">&quot;backgroundColor&quot;</span>);
+    }
+
+    <span class="co">//STATIC METHODS</span>
+    <span class="kw">public</span> <span class="dt">static</span> Config <span class="fu">getInstance</span>() {
+        <span class="kw">if</span> (config == <span class="kw">null</span>)
+            config = <span class="kw">new</span> <span class="fu">Config</span>();
+        <span class="kw">return</span> config;
+    }
+
+} <span class="co">// end class</span></code></pre></div>
+<p><strong>Domanda</strong>: scrivere una semplice classe di test che permetta di verificare il corretto funzionamento della classe <strong><code>Config</code></strong>.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="kw">class</span> TestConfig {
+    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(String[] args) {
+        System.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;backgroundColor = &quot;</span> + Config.<span class="fu">getInstance</span>().<span class="fu">getBackgroundColor</span>());
+    }
+}</code></pre></div>
+<p><strong>Domanda</strong>: assumendo che la posizione relativa del file di configurazione <em>config.txt</em> rispetto al bytecode <strong><code>Config.class</code></strong> sia nota a priori, &egrave; possibile ottenere a <strong>run-time</strong> il percorso completo del file di configurazione evitando di dover ricompilare ogni volta il codice sorgente?</p>
+<p><strong>Digressione</strong>: ogni qual volta un programma deve accedere ad una risorsa di tipo file, si pone il problema di come identificare tale risorsa all'interno del codice sorgente. Due principali alternative si presentano: utilizzare dei <em>nomi completi/assoluti</em> oppure dei <em>nomi relativi</em>. La prima alternativa &egrave; sicuramente la pi&ugrave; semplice da gestire, ma deve essere evitata se si desidera produrre un <em>bytecode portabile</em>, cio&egrave; eseguibile su tutte le piattaforme. Ad esempio, con riferimento ad un file di configurazione di nome <em>config.txt</em>, l'utilizzo di un nome completo come <code>&quot;/home/luca/Scrivania/config.txt&quot;</code> cablato nel codice, implica la non portabilit&agrave; del codice stesso, perch&eacute; presuppone che il bytecode di <strong><code>Config.class</code></strong> si trovi nella cartella <code>&quot;/home/luca/Scrivania/&quot;</code>, condizione che sfugge al controllo del programmatore. La seconda alternativa, utilizzare dei <em>nomi relativi</em>, deve essere combinata con tecniche avanzate di programmazione che fanno uso delle <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html">Java Reflection API</a> al fine di ricostruire a run-time il nome completo della risorsa di interesse; una trattazione esaustiva di tali tecniche esula dagli scopi di questo insegnamento, ci si limiter&agrave; pertanto ad esaminarle soltanto con riferimento al caso specifico in esame.</p>
+<p>Per <em>reflection</em> (<em>riflessione</em>) si intende in generale la capacit&agrave; che ha un programma di esaminare se stesso, cio&egrave; il suo bytecode. L'aspetto fondamentale &egrave; che questa capacit&agrave; si manifesta in fase di esecuzione, cio&egrave; a run-time, e permette pertanto di modificare il comportamento del programma a run-time. Ad esempio, &egrave; possibile inserire all'interno di una generica classe <strong><code>MyClass</code></strong> un opportuno frammento di codice che permette di ottenere a run-time il percorso completo (nome assoluto) di una generica risorsa <em>fileR</em>, dove <em>fileR</em> &egrave; identificata nel codice di cui sopra dal suo percorso relativo rispetto alla directory contenente il bytecode <strong><code>MyClass.class</code></strong>. Nel caso specifico, ci interessa ottenere a run-time il percorso completo del file di configurazione <em>config.txt</em>, conoscendo (a priori) il percorso relativo di tale file rispetto al bytecode di <strong><code>Config.class</code></strong>. La portabilit&agrave; &egrave; assicurata perch&eacute; il programma sar&agrave; sempre in grado di individuare tale file se la sua posizione relativa rispetto al bytecode <strong><code>Config.class</code></strong> coincide con quella cablata nel codice sorgente, e quest'ultima condizione &egrave; sempre garantita in quanto &egrave; sotto il pieno controllo del programmatore.</p>
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">import java.io.BufferedReader;</span>
+<span class="kw">import java.io.FileInputStream;</span>
+<span class="kw">import java.io.InputStreamReader;</span>
+<span class="kw">import java.io.FileNotFoundException;</span>
+<span class="kw">import java.io.IOException;</span>
+<span class="kw">import java.util.Properties;</span>
+<span class="kw">import javax.swing.JOptionPane;</span>
+
+<span class="kw">public</span> <span class="kw">class</span> Config {
+    
+    ...
+    
+    <span class="kw">private</span> <span class="fu">Config</span>() {
+        BufferedReader buffRead = <span class="kw">null</span>;
+        <span class="kw">try</span> {
+            buffRead = <span class="kw">new</span> BufferedReader(
+                <span class="kw">new</span> InputStreamReader(
+                    <span class="kw">new</span> FileInputStream(<span class="fu">getConfigFileFullPath</span>()),<span class="st">&quot;ISO-8859-1&quot;</span>));
+            
+            ...
+        }
+        <span class="kw">catch</span>(FileNotFoundException fnfe) {
+            ...
+        }
+        <span class="kw">catch</span>(IOException ioe) {
+            ...
+        }
+        <span class="kw">finally</span> {
+            ...
+        } <span class="co">// end finally</span>
+    } <span class="co">// end constructor</span>
+    
+    <span class="kw">private</span> String <span class="fu">getConfigFileFullPath</span>() {
+        String fileName = Config.<span class="fu">class</span>.<span class="fu">getResource</span>(<span class="st">&quot;config.txt&quot;</span>).<span class="fu">toString</span>();
+        
+        <span class="kw">if</span> (fileName.<span class="fu">contains</span>(<span class="st">&quot;//&quot;</span>))
+            fileName = fileName.<span class="fu">substring</span>(<span class="st">&quot;file:/&quot;</span>.<span class="fu">length</span>()); <span class="co">//Windows version</span>
+        <span class="kw">else</span> <span class="kw">if</span> (fileName.<span class="fu">contains</span>(<span class="st">&quot;/&quot;</span>))
+            fileName = fileName.<span class="fu">substring</span>(<span class="st">&quot;file:&quot;</span>.<span class="fu">length</span>()); <span class="co">//Linux version</span>
+        
+        fileName = fileName.<span class="fu">replaceAll</span>(<span class="st">&quot;%20&quot;</span>, <span class="st">&quot; &quot;</span>);
+        <span class="kw">return</span> fileName;
+    }
+
+    ...
+    
+} <span class="co">// end class</span></code></pre></div>
+
+<!-- [end] PANDOC OUTPUT
+================================================== -->
+
+</body>
+</html>
