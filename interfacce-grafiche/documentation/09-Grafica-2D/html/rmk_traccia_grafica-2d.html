@@ -1,0 +1,871 @@
+<!DOCTYPE HTML>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <title>
+   Made with Remarkable!
+  </title>
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/github.min.css" rel="stylesheet"/>
+  <style type="text/css">
+   body,table tr{background-color:#fff}table tr td,table tr th{border:1px solid #ccc;text-align:left;padding:6px 13px;margin:0}pre code,table,table tr{padding:0}hr,pre code{background:0 0}body{font:16px Helvetica,Arial,sans-serif;line-height:1.4;color:#333;word-wrap:break-word;padding:10px 15px}strong,table tr th{font-weight:700}h1{font-size:2em;margin:.67em 0;text-align:center}h2{font-size:1.75em}h3{font-size:1.5em}h4{font-size:1.25em}h1,h2,h3,h4,h5,h6{font-weight:700;position:relative;margin-top:15px;margin-bottom:15px;line-height:1.1}h1,h2{border-bottom:1px solid #eee}hr{height:0;margin:15px 0;overflow:hidden;border:0;border-bottom:1px solid #ddd}a{color:#4183C4}a.absent{color:#c00}ol,ul{padding-left:15px;margin-left:5px}ol{list-style-type:lower-roman}table tr{border-top:1px solid #ccc;margin:0}table tr:nth-child(2n){background-color:#aaa}table tr td :first-child,table tr th :first-child{margin-top:0}table tr td:last-child,table tr th :last-child{margin-bottom:0}img{max-width:100%}blockquote{padding:0 15px;border-left:4px solid #ccc}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;white-space:pre;border:none}.highlight pre,pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}
+  </style>
+ </head>
+ <body>
+  <h1 id="grafica-2d-in-java">
+   Grafica 2D in Java
+  </h1>
+  <h2 id="concetti-preliminari">
+   Concetti preliminari
+  </h2>
+  <p>
+   Java fornisce un importante supporto alla
+   <strong>
+    grafica 2D
+   </strong>
+   (e
+   <strong>
+    3D
+   </strong>
+   ), in particolare mette a disposizione un insieme di classi, del package
+   <strong>
+    <code>
+     java.awt
+    </code>
+   </strong>
+   , che permettono di:
+  </p>
+  <ul>
+   <li>
+    disegnare linee, rettangoli ed ogni altra forma geometrica;
+   </li>
+   <li>
+    riempire tali forme con colori solidi (uniformi), con un gradiente di colore o con particolari pattern (textures);
+   </li>
+   <li>
+    disegnare testo con la possibilit&agrave; di controllare il font e il processo di rendering;
+   </li>
+   <li>
+    disegnare immagini, con la possibilit&agrave; di includere delle operazioni di filtraggio o simili;
+   </li>
+   <li>
+    effettuare operazioni quali la composizione e/o applicare delle trasformazioni affini.
+   </li>
+  </ul>
+  <p>
+   <img alt="Grafica 2D" src="img/grafica2D.png"/>
+  </p>
+  <p>
+   <em>
+    Fig 1: panoramica di alcune funzionalit&agrave; offerte dalle 2D Graphics API di Java.
+   </em>
+  </p>
+  <p>
+   Con le
+   <strong>
+    Java 2D Graphics API
+   </strong>
+   (o
+   <strong>
+    Java 2D API
+   </strong>
+   ) si intendono l’insieme delle classi del package
+   <strong>
+    <code>
+     java.awt
+    </code>
+   </strong>
+   (AWT AbstractWindow Toolkit) che compongono la libreria standard per la grafica 2D di Java. Alcuni importanti pacchetti di tali API sono riportati di seguito, per l’elenco completo si rimanda alla documentazione Java, in particolare al
+   <a href="http://docs.oracle.com/javase/tutorial/2d/index.html">
+    Java Tutorial on 2D Graphics
+   </a>
+   .
+  </p>
+  <ul>
+   <li>
+    <strong>
+     <code>
+      java.awt
+     </code>
+    </strong>
+   </li>
+   <li>
+    <code>
+     java.awt.
+    </code>
+    <strong>
+     <code>
+      geom
+     </code>
+    </strong>
+   </li>
+   <li>
+    <code>
+     java.awt.
+    </code>
+    <strong>
+     <code>
+      font
+     </code>
+    </strong>
+   </li>
+   <li>
+    <code>
+     java.awt.
+    </code>
+    <strong>
+     <code>
+      color
+     </code>
+    </strong>
+   </li>
+   <li>
+    <code>
+     java.awt.
+    </code>
+    <strong>
+     <code>
+      image
+     </code>
+    </strong>
+   </li>
+   <li>
+    <code>
+     java.awt.
+    </code>
+    <strong>
+     <code>
+      print
+     </code>
+    </strong>
+   </li>
+   <li>
+    …
+   </li>
+  </ul>
+  <p>
+   Il processo di
+   <strong>
+    rendering
+   </strong>
+   di Java, cio&egrave; la riproduzione di una qualsiasi informazione grafica su un dispositivo di output (monitor, stampante) avviene utilizzando in modo opportuno un
+   <strong>
+    contesto grafico
+   </strong>
+   Java; ovvero un oggetto di tipo
+   <code>
+    java.awt.
+   </code>
+   <em>
+    <code>
+     Graphics
+    </code>
+   </em>
+   . Un contesto grafico Java schematizza un ambiente di visualizzazione
+   <strong>
+    indipendente
+   </strong>
+   dal
+   <strong>
+    dispositivo di output
+   </strong>
+   e dalla
+   <strong>
+    piattaforma utilizzati
+   </strong>
+   .
+   <br/>
+   L’interazione con il contesto grafico, cio&egrave; con un oggetto di tipo
+   <em>
+    <code>
+     Graphics
+    </code>
+   </em>
+   , consiste nel descrivere, mediante una serie di primitive grafiche (di rendering), come “pitturare” (“paint”) l’area di disegno nel dispositivo di output.
+  </p>
+  <p>
+   <img alt="Contesto Grafico" src="img/contestoGrafico.png"/>
+  </p>
+  <p>
+   <em>
+    Fig 2: schematizzazione del funzionamento del contesto grafico
+    <code>
+     java.awt.Graphics
+    </code>
+    .
+   </em>
+  </p>
+  <h2 id="primitive-di-un-oggetto-di-tipo-graphics">
+   Primitive di un oggetto di tipo
+   <em>
+    <code>
+     Graphics
+    </code>
+   </em>
+  </h2>
+  <p>
+   Un oggetto di tipo
+   <em>
+    <code>
+     Graphics
+    </code>
+   </em>
+   offre una serie di primitive grafiche (metodi pubblici) per riprodurre una qualsiasi informazione grafica sul dispositivo di output. Molte di queste primitive servono a visualizzare forme geometriche di vario tipo, pertanto deve essere specificata una descrizione geometrica di tali forme, rispetto ad un qualche riferimento cartesiano, che permetta di effettuarne il rendering sul dispositivo di output.
+   <br/>
+   Per agevolare il compito del programmatore, evitando di fornire un codice diverso per ogni dispositivo di output, gli oggetti di tipo
+   <em>
+    <code>
+     Graphics
+    </code>
+   </em>
+   gestiscono due sistemi di coordinate, denominati
+   <strong>
+    spazio utente
+   </strong>
+   (
+   <strong>
+    user space
+   </strong>
+   ) e
+   <strong>
+    spazio di dispositivo
+   </strong>
+   (
+   <strong>
+    device space
+   </strong>
+   ).
+   <br/>
+   Lo
+   <strong>
+    spazio utente
+   </strong>
+   stabilisce il sistema di coordinate a disposizione del
+   <strong>
+    programmatore
+   </strong>
+   ed &egrave; indipendente dalle caratteristiche dei dispositivi di uscita interessati dalle operazioni di rendering. Generalmente, un punto dello spazio utente &egrave; rappresentabile sia utilizzando delle coordinate intere (
+   <code>
+    int
+   </code>
+   ) sia utilizzando delle coordinate frazionarie (
+   <code>
+    float
+   </code>
+   o
+   <code>
+    double
+   </code>
+   ); si osservi per&ograve; che quando si parla di coordinate non intere si sta implicitamente facendo riferimento al contesto grafico “avanzato”
+   <em>
+    <code>
+     Graphics2D
+    </code>
+   </em>
+   : una estensione di
+   <em>
+    <code>
+     Graphics
+    </code>
+   </em>
+   che ne potenzia le funzionalit&agrave;. L’orientamento degli assi cartesiani &egrave; quello mostrato in figura.
+  </p>
+  <p>
+   <img alt="Coordinate spazio utente" src="img/2D-11.gif"/>
+  </p>
+  <p>
+   <em>
+    Fig 3: sistema di coordinate cartesiane dello spazio utente.
+   </em>
+  </p>
+  <p>
+   Lo
+   <strong>
+    spazio di dispositivo
+   </strong>
+   definisce invece il sistema di coordinate del dispositivo di uscita: dipende strettamente dalle caratteristiche del dispositivo usato per le operazioni di rendering. Le coordinate dei punti dello spazio di dispositivo sono espresse in pixel, nel caso di monitor, e sono sempre definite mediante valori di tipo int. L’orientamento degli assi cartesiani &egrave; analogo a quello dello spazio utente; vedi Fig. 3. Il passaggio dalle coordinate nello spazio utente alle corrispondenti coordinate nello spazio del dispositivo viene svolto in modo autonomo e trasparente al programmatore; questo aspetto &egrave; proprio quello che agevola il compito di quest’ultimo.
+  </p>
+  <p>
+   <em>
+    Tabella 1. Principali primitive grafiche di
+   </em>
+   <em>
+    <code>
+     Graphics
+    </code>
+   </em>
+   .
+  </p>
+  <table>
+   <thead>
+    <tr>
+     <th>
+      <strong>
+       Modifier and Type
+      </strong>
+     </th>
+     <th>
+      <strong>
+       Method
+      </strong>
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td>
+      <code>
+       abstract void
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        drawArc
+       </code>
+      </strong>
+      <code>
+       (int x, int y, int width, int height, int startAngle, int arcAngle)
+      </code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       abstract boolean
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        drawImage
+       </code>
+      </strong>
+      <code>
+       (Image img, int x, int y, Color bgcolor, ImageObserver observer)
+      </code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       abstract void
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        drawLine
+       </code>
+      </strong>
+      <code>
+       (int x1, int y1, int x2, int y2)
+      </code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       abstract void
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        drawOval
+       </code>
+      </strong>
+      <code>
+       (int x, int y, int width, int height)
+      </code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       abstract void
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        drawPolygon
+       </code>
+      </strong>
+      <code>
+       (int[] xPoints, int[] yPoints, int nPoints)
+      </code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       abstract void
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        drawPolyline
+       </code>
+      </strong>
+      <code>
+       (int[] xPoints, int[] yPoints, int nPoints)
+      </code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       void
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        drawRect
+       </code>
+      </strong>
+      <code>
+       (int x, int y, int width, int height)
+      </code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       abstract void
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        drawRoundRect
+       </code>
+      </strong>
+      <code>
+       (int x, int y, int width, int height, int arcWidth, int arcHeight)
+      </code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       abstract void
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        drawString
+       </code>
+      </strong>
+      <code>
+       (String str, int x, int y)
+      </code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       abstract void
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        fillArc
+       </code>
+      </strong>
+      <code>
+       (int x, int y, int width, int height, int startAngle, int arcAngle)
+      </code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       abstract void
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        fillOval
+       </code>
+      </strong>
+      <code>
+       (int x, int y, int width, int height)
+      </code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       abstract void
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        fillPolygon
+       </code>
+      </strong>
+      <code>
+       (int[] xPoints, int[] yPoints, int nPoints)
+      </code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       abstract void
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        fillRect
+       </code>
+      </strong>
+      <code>
+       (int x, int y, int width, int height)
+      </code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       abstract void
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        fillRoundRect
+       </code>
+      </strong>
+      <code>
+       (int x, int y, int width, int height, int arcWidth, int arcHeight)
+      </code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       abstract Color
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        getColor
+       </code>
+      </strong>
+      <code>
+       ()
+      </code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       abstract Font
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        getFont
+       </code>
+      </strong>
+      <code>
+       ()
+      </code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       abstract void
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        setColor
+       </code>
+      </strong>
+      <code>
+       (Color c)
+      </code>
+     </td>
+    </tr>
+    <tr>
+     <td>
+      <code>
+       abstract void
+      </code>
+     </td>
+     <td>
+      <strong>
+       <code>
+        setFont
+       </code>
+      </strong>
+      <code>
+       (Font font)
+      </code>
+     </td>
+    </tr>
+   </tbody>
+  </table>
+  <h2 id="rendering-di-uninformazione-grafica-su-una-componente-awtswing">
+   Rendering di un’informazione grafica su una componente awt/swing
+  </h2>
+  <p>
+   Un oggetto di tipo
+   <em>
+    <code>
+     Graphics
+    </code>
+   </em>
+   pu&ograve; essere utilizzato per effettuare il rendering di una qualsiasi informazione grafica all’interno di una componente awt/swing. Siccome la classe
+   <em>
+    <code>
+     Graphics
+    </code>
+   </em>
+   &egrave; astratta non &egrave; possibile ottenere un oggetto di tipo Graphics direttamente con l’operatore
+   <strong>
+    <code>
+     new
+    </code>
+   </strong>
+   . La domanda che si pone &egrave; pertanto la seguente:
+   <em>
+    come &egrave; possibile ottenere un’istanza di una classe concreta che estende
+    <code>
+     Graphics
+    </code>
+    ?
+   </em>
+   Per dare una risposta convincente &egrave; necessario illustrare la “filosofia” alla base del
+   <em>
+    processo di renderin
+   </em>
+   g di una GUI awt/swing.
+   <br/>
+   Il processo di rendering di una GUI viene gestito dall’
+   <strong>
+    AWT Painting System
+   </strong>
+   (
+   <strong>
+    AWT-PS
+   </strong>
+   ) e viene reso ancora pi&ugrave; efficiente dallo
+   <strong>
+    Swing Repaint Manager
+   </strong>
+   (
+   <strong>
+    SRM
+   </strong>
+   ). L’AWT-PS/SRM, dal nostro punto di vista, rappresenta il programma che coordina il rendering di un’interfaccia grafica. Ogni qual volta &egrave; necessario effettuare il rendering della GUI (
+   <strong>
+    <code>
+     JFrame
+    </code>
+   </strong>
+   ) o di una sua “porzione” (ad esempio un
+   <strong>
+    <code>
+     JPanel
+    </code>
+   </strong>
+   ), l’AWT-PS/SRM chiede alla GUI o a quella sua “porzione” di “dipingersi”, per fare questo invoca il metodo
+   <strong>
+    <code>
+     paint()
+    </code>
+   </strong>
+   passando in argomento a tale metodo un oggetto concreto di tipo
+   <em>
+    <code>
+     Graphics
+    </code>
+   </em>
+   , cio&egrave; il contesto grafico. In altri termini, il processo di rendering delega alle singole componenti awt/swing il compito di dipingersi invocando su di loro il metodo:
+  </p>
+  <pre><code class="java">    public void paint(Graphics g)
+</code></pre>
+  <p>
+   Si noti che il metodo
+   <code>
+    paint()
+   </code>
+   viene definito nella super-classe
+   <code>
+    javax.swing.
+   </code>
+   <strong>
+    <code>
+     JComponent
+    </code>
+   </strong>
+   quindi &egrave; implicitamente ereditato da tutte le componenti swing. Nel caso del
+   <strong>
+    <code>
+     JFrame
+    </code>
+   </strong>
+   viene invece ereditato dalla sua super-classe
+   <code>
+    java.awt.
+   </code>
+   <strong>
+    <code>
+     Window
+    </code>
+   </strong>
+   .
+  </p>
+  <p>
+   <strong>
+    IMPORTANTE
+   </strong>
+   <br/>
+   L’invocazione di
+   <code>
+    paint()
+   </code>
+   avviene spesso in modo trasparente al programmatore, in particolare tale metodo viene sempre invocato in modo automatico ogni qual volta &egrave; necessario “ridipingere” la GUI (o una sua porzione). Ad esempio, se un qualche evento comporta che il testo di un componente
+   <code>
+    JLabel
+   </code>
+   debba essere modificato, allora in modo trasparente al programmatore l’AWT-PS/SRM chiede al quel componente
+   <code>
+    JLabel
+   </code>
+   di ridipingersi invocando su di lui il metodo
+   <code>
+    paint()
+   </code>
+   . Il programmatore non deve pertanto farsi carico di gestire il “repaint” di quel componente. Un altro esempio &egrave; quando la GUI deve essere visualizzata per la prima volta o quando si passa dallo stato “iconizzato” allo stato “deiconizzato”.
+   <br/>
+   Tuttavia, possono esservi delle situazioni in cui &egrave; necessario consentire al programmatore di richiedere un “repaint” della GUI o di un suo componente, a tale scopo &egrave; dedicato appunto il metodo
+   <strong>
+    <code>
+     repaint()
+    </code>
+   </strong>
+   . Si noti che, il metodo
+   <strong>
+    <code>
+     repaint()
+    </code>
+   </strong>
+   non richiede che gli sia passato in argomento un contesto grafico, in quanto serve soltanto a sollecitare l’AWT-PS/SRM ad invocare il metodo
+   <code>
+    paint()
+   </code>
+   su quel componente. La tempistica con la quale sar&agrave; effettivamente ridipinto il componente in questione &egrave; soltanto parzialmente influenzabile dal programmatore. Infine, per ovvie ragioni di efficienza, il programmatore pu&ograve; richiedere di ridipingere una porzione ridotta di un dato componente. Per ulteriori dettagli si consulti la documentazione Java.
+  </p>
+  <p>
+   <strong>
+    IMPORTANTE
+   </strong>
+   <br/>
+   Il processo di rendering appena descritto e che sar&agrave; illustrato nel seguito, viene definito
+   <em>
+    rendering passivo
+   </em>
+   (
+   <em>
+    passive rendering
+   </em>
+   ), nel senso che il programmatore pu&ograve; soltanto influenzare la sua evoluzione, ma non ha un totale controllo sul
+   <em>
+    quando
+   </em>
+   una data operazione debbe essere effettuata. In alcune situazioni, il rendering passivo pu&ograve; non essere sufficientemente “rapido” da garantire un’efficace esecuzione di talune applicazioni grafiche, quali ad esempio i video-game, in questi casi conviene utilizzare un approccio basato sul
+   <em>
+    rendering attivo
+   </em>
+   (
+   <em>
+    active rendering
+   </em>
+   ). Una trattazione dettagliata sul rendering attivo esula dagli scopo di questo corso, per il lettore interessato si rimanda alla seguente documentazione Java
+   <a href="https://docs.oracle.com/javase/tutorial/extra/fullscreen/index.html">
+    Full-Screen Exclusive Mode API
+   </a>
+   .
+  </p>
+  <p>
+   Ritornando pertanto alla domanda iniziale: come &egrave; possibile ottenere un’istanza di una classe concreta che estende
+   <em>
+    <code>
+     Graphics
+    </code>
+   </em>
+   ?
+   <br/>
+   La risposta risulta a questo punto abbastanza semplice alla luce di quanto detto. In particolare, siccome l’obiettivo &egrave; quello di dipingere una data informazione grafica all’interno di una GUI, ci si deve limitare ad estendere in modo opportuno il metodo
+   <strong>
+    <code>
+     paint()
+    </code>
+   </strong>
+   del componente della GUI su cui si desidera dipingere.
+  </p>
+  <p>
+   <strong>
+    Domanda
+   </strong>
+   Fornire lo scheletro di una classe
+   <strong>
+    <code>
+     DrawingWindow
+    </code>
+   </strong>
+   che illustri come sia possibile disegnare una qualsiasi informazione grafica all’interno del content pane di un
+   <strong>
+    <code>
+     JFrame
+    </code>
+   </strong>
+   .
+  </p>
+  <pre><code class="java">import java.awt.Dimension;
+import java.awt.Graphics;
+import javax.swing.JFrame;
+
+public class DrawingWindow extends JFrame {
+
+
+    //...
+
+
+    public static void main(String[] args) {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new DrawingWindow().setVisible(true);
+            }
+        });
+    }
+
+} // end class
+</code></pre>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js">
+  </script>
+  <script>
+   hljs.initHighlightingOnLoad();
+  </script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+   MathJax.Hub.Config({"showProcessingMessages" : false,"messageStyle" : "none","tex2jax": { inlineMath: [ [ "$", "$" ] ] }});
+  </script>
+ </body>
+</html>

@@ -1093,49 +1093,15 @@
    </strong>
    .
   </p>
-  <p>
-   <strong>
-    Risposta
-   </strong>
-   Di seguito viene riportata una possibile implementazione dello scheletro di
-   <strong>
-    <code>
-     DrawingWindow
-    </code>
-   </strong>
-   ; si osservi che sebbene sia possibile disegnare all’interno di un
-   <strong>
-    <code>
-     JFrame
-    </code>
-   </strong>
-   , la documentazione Java lo sconsiglia, suggerendo invece di utilizzare un componente
-   <strong>
-    <code>
-     JPanel
-    </code>
-   </strong>
-   quale area di disegno.
-  </p>
   <pre><code class="java">import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JFrame;
 
 public class DrawingWindow extends JFrame {
 
-    public DrawingWindow() {
-        super("DrawingWindow");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(800, 600));
-        pack();
-    }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        // add below the code for drawing a house
-        //...
-    }
+    //...
+
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {

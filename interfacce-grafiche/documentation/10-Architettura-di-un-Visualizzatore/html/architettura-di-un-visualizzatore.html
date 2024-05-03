@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+
+<html lang="it">
+<head>
+	<meta charset="utf-8">
+	<title>Elementi di Informatica Grafica</title>
+	<meta name="description" content="Elementi di Informatica Grafica">
+	<meta name="author" content="Luca Grilli">
+
+	<style>
+		body {
+			background: #fefefe;
+			color: #444;
+			font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+			font-size: 12pt;
+			margin: auto;
+			max-width: 60em;
+			padding: 1em;
+		}
+		h1, h2, h3, h4, h5, h6 {
+		 font-weight: normal;
+		 color: #111;
+		 line-height:1em;
+		 }
+		 h4, h5, h6 { font-weight: bold; }
+		 h1 { font-size: 2.5em; }
+		 h2 { font-size: 2em; }
+		 h3 { font-size: 1.8em; }
+		 h4 { font-size: 1.4em; }
+		 h5 { font-size: 1.2em; }
+		 h6 { font-size: 1em; }
+		 a { color: #0645ad; text-decoration:none;}
+		 a:visited { color: #0b0080; }
+		 a:hover { color: #06e; }
+		 a:active { color:#faa700; }
+		 a:focus { outline: thin dotted; }
+		 a:hover, a:active { outline: 0; }
+		#preview-box {
+			/*background-color: rgba(1,1,1,0.1);*/
+			padding: 1px 10px;
+			border-radius: 10px;
+		}
+	</style>
+
+	<link id="linkstyle" rel="stylesheet" href="highlight/styles/default.css">
+	<script src="highlight/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+
+	<!--[if lt IE 9]>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+	<![endif]-->
+</head>
+
+<body id="body">
+
+<!-- [start] FONT SIZE SELECTOR
+================================================== -->
+<div>
+		<div style="width: 14%; display:inline-block;">Font size</div>
+		<!--<select style="width:100%" id="fontsize">-->
+		<select id="fontsize">
+			<option value="8">8</option>
+			<option value="9">9</option>
+			<option value="10">10</option>
+			<option value="11">11</option>
+			<option value="12" selected="selected">12</option>
+			<option value="13">13</option>
+			<option value="14">14</option>
+			<option value="15">15</option>
+			<option value="16">16</option>
+			<option value="17">17</option>
+			<option value="18">18</option>
+			<option value="19">19</option>
+			<option value="20">20</option>
+			<option value="21">21</option>
+			<option value="22">22</option>
+			<option value="23">23</option>
+			<option value="24">24</option>
+			<option value="25">25</option>
+			<option value="26">26</option>
+			<option value="27">27</option>
+			<option value="28">28</option>
+			<option value="29">29</option>
+			<option value="30">30</option>
+			<option value="31">31</option>
+			<option value="32">32</option>
+			<option value="33">33</option>
+			<option value="34">34</option>
+			<option value="35">35</option>
+			<option value="36">36</option>
+			<option value="37">37</option>
+			<option value="38">38</option>
+			<option value="39">39</option>
+			<option value="40">40</option>
+		</select>
+</div>
+<script>
+	var fontsize = document.getElementById('fontsize');
+	fontsize.onchange = function(e) {
+		document.getElementById('body').style.fontSize = fontsize.value + 'pt';
+	};
+</script>
+<!-- [end] FONT SIZE SELECTOR
+================================================== -->
+
+<!-- [start] FONT FAMILY SELECTOR
+================================================== -->
+<div>
+		<div style="width: 14%; display:inline-block;">Font family</div>
+		<select id="fontfamily">
+			<option value="Agency FB">Agency FB</option>
+			<option value="Antiqua">Antiqua</option>
+			<option value="Arial">Arial</option>
+			<option value="Calibri">Calibri</option>
+			<option value="Comic Sans MS">Comic Sans MS</option>
+			<option value="Courier">Courier</option>
+			<option value="Cursive">Cursive</option>
+			<option value="Garamond">Garamond</option>
+			<option value="Georgia" selected="selected">Georgia</option>
+			<option value="Helvetica">Helvetica</option>
+			<option value="Modern">Modern</option>
+			<option value="Monospace">Monospace</option>
+			<option value="Open Sans">Open Sans</option>
+			<option value="Palatino">Palatino</option>
+			<option value="Raleway">Raleway</option>
+			<option value="Sans-serif">Sans-serif</option>
+			<option value="Serif">Serif</option>
+			<option value="Swiss">Swiss</option>
+			<option value="Times">Times</option>
+			<option value="Times New Roman">Times New Roman</option>
+			<option value="Ubuntu">Ubuntu</option>
+			<option value="Verdana">Verdana</option>
+		</select>
+</div>
+<script>
+	var fontfamily = document.getElementById('fontfamily');
+	fontfamily.onchange = function(e) {
+		document.getElementById('body').style.fontFamily = fontfamily.value;
+	};
+</script>
+<!-- [end] FONT FAMILY SELECTOR
+================================================== -->
+
+<!-- [start] MAX WIDTH SELECTOR
+================================================== -->
+<div>
+		<div style="width: 14%; display:inline-block;">Max width</div>
+		<select id="maxwidth">
+			<option value="40em">40</option>
+			<option value="42em">42</option>
+			<option value="44em">44</option>
+			<option value="46em">46</option>
+			<option value="48em">48</option>
+			<option value="50em" selected="selected">50</option>
+			<option value="52em">52</option>
+			<option value="54em">54</option>
+			<option value="56em">56</option>
+			<option value="58em">58</option>
+			<option value="60em">60</option>
+		</select>
+</div>
+<script>
+	var maxwidth = document.getElementById('maxwidth');
+	maxwidth.onchange = function(e) {
+		document.getElementById('body').style.maxWidth = maxwidth.value;
+	};
+</script>
+<!-- [end] MAX WIDTH SELECTOR
+================================================== -->
+
+<!-- [start] SYNTAX HIGHLIGHTING STYLESHEET SELECTOR
+================================================== -->
+<div>
+		Stylesheet for syntax highlighting
+		<select id="themes">
+			<option value="highlight/styles/default.css">default</option>
+			<option value="highlight/styles/agate.css">agate</option>
+			<option value="highlight/styles/androidstudio.css">androidstudio</option>
+			<option value="highlight/styles/arduino-light.css">arduino-light</option>
+			<option value="highlight/styles/arta.css">arta</option>
+			<option value="highlight/styles/ascetic.css">ascetic</option>
+			<option value="highlight/styles/atelier-cave-dark.css">atelier-cave-dark</option>
+			<option value="highlight/styles/atelier-cave-light.css">atelier-cave-light</option>
+			<option value="highlight/styles/atelier-dune-dark.css">atelier-dune-dark</option>
+			<option value="highlight/styles/atelier-dune-light.css">atelier-dune-light</option>
+			<option value="highlight/styles/atelier-estuary-dark.css">atelier-estuary-dark</option>
+			<option value="highlight/styles/atelier-estuary-light.css">atelier-estuary-light</option>
+			<option value="highlight/styles/atelier-forest-dark.css">atelier-forest-dark</option>
+			<option value="highlight/styles/atelier-forest-light.css">atelier-forest-light</option>
+			<option value="highlight/styles/atelier-heath-dark.css">atelier-heath-dark</option>
+			<option value="highlight/styles/atelier-heath-light.css">atelier-heath-light</option>
+			<option value="highlight/styles/atelier-lakeside-dark.css">atelier-lakeside-dark</option>
+			<option value="highlight/styles/atelier-lakeside-light.css">atelier-lakeside-light</option>
+			<option value="highlight/styles/atelier-plateau-dark.css">atelier-plateau-dark</option>
+			<option value="highlight/styles/atelier-plateau-light.css">atelier-plateau-light</option>
+			<option value="highlight/styles/atelier-savanna-dark.css">atelier-savanna-dark</option>
+			<option value="highlight/styles/atelier-savanna-light.css">atelier-savanna-light</option>
+			<option value="highlight/styles/atelier-seaside-dark.css">atelier-seaside-dark</option>
+			<option value="highlight/styles/atelier-seaside-light.css">atelier-seaside-light</option>
+			<option value="highlight/styles/atelier-sulphurpool-dark.css">atelier-sulphurpool-dark</option>
+			<option value="highlight/styles/atelier-sulphurpool-light.css">atelier-sulphurpool-light</option>
+			<option value="highlight/styles/atom-one-dark.css">atom-one-dark</option>
+			<option value="highlight/styles/atom-one-light.css">atom-one-light</option>
+			<option value="highlight/styles/brown-paper.css">brown-paper</option>
+			<option value="highlight/styles/codepen-embed.css">codepen-embed</option>
+			<option value="highlight/styles/color-brewer.css">color-brewer</option>
+			<option value="highlight/styles/darcula.css">darcula</option>
+			<option value="highlight/styles/dark.css">dark</option>
+			<option value="highlight/styles/darkula.css">darkula</option>
+			<option value="highlight/styles/default.css">default</option>
+			<option value="highlight/styles/docco.css">docco</option>
+			<option value="highlight/styles/dracula.css">dracula</option>
+			<option value="highlight/styles/far.css">far</option>
+			<option value="highlight/styles/foundation.css">foundation</option>
+			<option value="highlight/styles/github.css">github</option>
+			<option value="highlight/styles/github-gist.css">github-gist</option>
+			<option value="highlight/styles/googlecode.css">googlecode</option>
+			<option value="highlight/styles/grayscale.css">grayscale</option>
+			<option value="highlight/styles/gruvbox-dark.css">gruvbox-dark</option>
+			<option value="highlight/styles/gruvbox-light.css">gruvbox-light</option>
+			<option value="highlight/styles/hopscotch.css">hopscotch</option>
+			<option value="highlight/styles/hybrid.css">hybrid</option>
+			<option value="highlight/styles/idea.css">idea</option>
+			<option value="highlight/styles/ir-black.css">ir-black</option>
+			<option value="highlight/styles/kimbie.dark.css">kimbie.dark</option>
+			<option value="highlight/styles/kimbie.light.css">kimbie.light</option>
+			<option value="highlight/styles/magula.css">magula</option>
+			<option value="highlight/styles/mono-blue.css">mono-blue</option>
+			<option value="highlight/styles/monokai.css">monokai</option>
+			<option value="highlight/styles/monokai-sublime.css">monokai-sublime</option>
+			<option value="highlight/styles/obsidian.css">obsidian</option>
+			<option value="highlight/styles/ocean.css">ocean</option>
+			<option value="highlight/styles/paraiso-dark.css">paraiso-dark</option>
+			<option value="highlight/styles/paraiso-light.css">paraiso-light</option>
+			<option value="highlight/styles/pojoaque.css">pojoaque</option>
+			<option value="highlight/styles/purebasic.css">purebasic</option>
+			<option value="highlight/styles/qtcreator_dark.css">qtcreator_dark</option>
+			<option value="highlight/styles/qtcreator_light.css">qtcreator_light</option>
+			<option value="highlight/styles/railscasts.css">railscasts</option>
+			<option value="highlight/styles/rainbow.css">rainbow</option>
+			<option value="highlight/styles/school-book.css">school-book</option>
+			<option value="highlight/styles/solarized-dark.css">solarized-dark</option>
+			<option value="highlight/styles/solarized-light.css">solarized-light</option>
+			<option value="highlight/styles/sunburst.css">sunburst</option>
+			<option value="highlight/styles/tomorrow.css">tomorrow</option>
+			<option value="highlight/styles/tomorrow-night-blue.css">tomorrow-night-blue</option>
+			<option value="highlight/styles/tomorrow-night-bright.css">tomorrow-night-bright</option>
+			<option value="highlight/styles/tomorrow-night.css">tomorrow-night</option>
+			<option value="highlight/styles/tomorrow-night-eighties.css">tomorrow-night-eighties</option>
+			<option value="highlight/styles/vs.css">vs</option>
+			<option value="highlight/styles/xcode.css">xcode</option>
+			<option value="highlight/styles/xt256.css">xt256</option>
+			<option value="highlight/styles/zenburn.css">zenburn</option>
+		</select>
+</div>
+<script>
+	var linkstyle = document.getElementById('linkstyle');
+	var themes = document.getElementById('themes');
+	themes.onchange = function(e) {
+		linkstyle.href = themes.value;
+	};
+</script>
+<!-- [end] SYNTAX HIGHLIGHTING STYLESHEET SELECTOR
+================================================== -->
+
+<!-- [start] PANDOC OUTPUT
+================================================== -->
+<h1 id="architettura-di-un-visualizzatore-per-disegni-in-grafica-vettoriale">Architettura di un Visualizzatore per Disegni in Grafica Vettoriale</h1>
+<h3 id="descrizione-del-problema">Descrizione del problema</h3>
+<p>Si desidera realizzare un'applicazione desktop finalizzata alla visualizzazione di disegni in grafica vettoriale. L'applicazione deve essere sufficientemente versatile da poter visualizzare disegni generici e non soltanto uno specifico disegno. In particolare, l'architettura deve essere concepita in modo tale da <strong>separare</strong> il <strong>visualizzatore</strong> dall'oggetto visualizzato, cio&egrave; dal <strong>disegno</strong>. Tenendo presente che la riproduzione di una qualsiasi informazione grafica deve avvenire mediante la sovrascrizione del metodo <em><code>paint()</code></em> della componente swing utilizzata come canvas, una prima possibile architettura che permette di disegnare direttamente all'interno di un <strong><code>JFrame</code></strong> &egrave; la seguente:</p>
+<p><img src="img/arcVis0.plantUML.svg" alt="arcVis0" /> <em>Fig. 1: architettura di un visualizzatore per disegni in grafica vettoriale, versione 0.</em></p>
+<p>Di seguito viene riportata un'implementazione del visualizzatore aderente all'architettura di cui sopra. Per ovvie ragioni di semplicit&agrave; il disegno da visualizzare &egrave; estremamente semplice e consiste in un rettangolo con interno rosso e contorno nero.</p>
+<pre class="java"><code>import java.awt.Graphics;
+
+public abstract class AbstractDrawing {
+
+    public abstract void draw(Graphics g);
+
+} // end class</code></pre>
+<pre class="java"><code>import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
+
+public class ConcreteDrawing extends AbstractDrawing {
+
+    private Rectangle2D.Double rect;
+
+    public ConcreteDrawing() {
+        this.rect = new Rectangle2D.Double(100, 100, 300, 300); // x, y, width, height
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        Graphics2D g2d = (Graphics2D)g;
+
+        g2d.setColor(Color.red);
+        g2d.fill(rect);
+        g2d.setColor(Color.black);
+        g2d.draw(rect);
+    }
+
+} // end class</code></pre>
+<pre class="java"><code>import java.awt.Dimension;
+import java.awt.Graphics;
+import javax.swing.JFrame;
+
+public class DrawingGUI extends JFrame {
+
+    private AbstractDrawing dw;
+
+    private final static int JFRAME_WIDTH = 800;
+    private final static int JFRAME_HEIGHT = 600;
+
+    public DrawingGUI(String title, AbstractDrawing dw) {
+        super(title);
+        this.dw = dw;
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(JFRAME_WIDTH, JFRAME_HEIGHT));
+        pack();
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        dw.draw(g);
+    }
+
+    public static void main(String[] args) {
+
+        final AbstractDrawing drawing = new ConcreteDrawing();
+
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new DrawingGUI(&quot;Drawing GUI&quot;, drawing).setVisible(true);
+
+            }
+        }); // end method invokeLater()
+    }
+
+} // end class</code></pre>
+<p>&Egrave; semplice osservare che la soluzione appena illustrata presenta i seguenti problemi:</p>
+<ul>
+<li>non &egrave; possibile visualizzare interamente disegni con dimensioni eccedenti quella della finestra, in altri termini non compaiono le consuete barre di scorrimento orizzontali e/o verticali;</li>
+<li>nel ridimensionare la finestra il disegno non viene visualizzato in modo stabile.</li>
+</ul>
+<p>Il secondo problema &egrave; risolvibile utilizzando come canvas il componente <strong><code>JPanel</code></strong>, come d'altronde espressamente suggerito dalla documentazione delle Java 2D API. Di seguito viene illustrata la nuova architettura che recepisce tale correzione e a seguire la correzione del codice sorgente.</p>
+<p><img src="img/arcVis1.plantUML.svg" alt="arcVis1" /> <em>Fig. 2: architettura di un visualizzatore per disegni in grafica vettoriale, versione 1.</em></p>
+<p>Si osservi che in accordo con la documentazione Java (si consulti a tal riguardo la seguente sezione del tutorial <a href="https://docs.oracle.com/javase/tutorial/uiswing/painting/index.html">Performing Custom Painting</a>), anzich&eacute; effettuare l'overriding del metodo <code>paint()</code> &egrave; stato sovrascritto il metodo <code>paintComponent()</code> di <strong><code>JPanel</code></strong>.</p>
+<pre class="java"><code>import java.awt.Graphics;
+import javax.swing.JPanel;
+
+public class DrawingPanel extends JPanel {
+
+    private AbstractDrawing dw = null;
+
+    public void setDrawing(AbstractDrawing dw) {
+        this.dw = dw;
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        /* add instructions for your specific drawing */
+        dw.draw(g);
+    }
+
+} // end class</code></pre>
+<pre class="java"><code>import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import javax.swing.JFrame;
+
+public class DrawingGUI extends JFrame {
+
+    private final static int JFRAME_WIDTH = 800;
+    private final static int JFRAME_HEIGHT = 600;
+
+    public DrawingGUI(String title, AbstractDrawing dw) {
+        super(title);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(JFRAME_WIDTH, JFRAME_HEIGHT));
+
+        DrawingPanel drawPanel = new DrawingPanel();
+        drawPanel.setDrawing(dw);
+
+        Container contPane = getContentPane();
+        contPane.setLayout(new BorderLayout());
+        contPane.add(drawPanel, BorderLayout.CENTER);
+
+        pack();
+    }
+
+    public static void main(String[] args) {
+
+        final AbstractDrawing drawing = new ConcreteDrawing();
+
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new DrawingGUI(&quot;Drawing GUI&quot;, drawing).setVisible(true);
+
+            }
+        }); // end method invokeLater()
+    }
+
+} // end class</code></pre>
+<p>Per quanto concerne il primo dei due problemi precedentemente riscontrati, relativo alla mancata visualizzazione delle barre di scorrimento, la soluzione obbligata &egrave; fare uso del componente swing <strong><code>JScrollPane</code></strong> che rappresenta appunto la componente che gestisce la visualizzazione delle barre di scorrimento. In particolare, il <strong><code>JScrollPane</code></strong> deve essere contenuto in un componente di tipo <strong><code>Container</code></strong> (nel nostro caso il <strong><code>JFrame</code></strong>) e contenere a sua volta un altro componente (nel nostro caso il <strong><code>DrawingPanel</code></strong>). Il <strong><code>JScrollPane</code></strong> introduce le barre di scorrimento quando il contenuto eccede le dimensioni del contenitore. <strong>IMPORTANTE</strong>: il corretto funzionamento del <strong><code>JScrollPane</code></strong> &egrave; subordinato al fatto che l'invocazione del metodo <code>getPreferredSize()</code> sul componente contenuto restituisca le dimensioni che si desiderano per quel componente. Nel nostro caso, l'invocazione del metodo <code>getPreferredSize()</code> sul componente <strong><code>DrawingPanel</code></strong> deve restituire delle dimensioni tali da garantire il contenimento del disegno. Pertanto, &egrave; necessario modificare la classe astratta <em><code>AbstractDrawing</code></em> aggiungendo i metodi (astratti) <em><code>getDrawingWidth()</code></em> e <em><code>getDrawingHeight()</code></em>. Di seguito viene illustrata una nuova architettura in cui il dimensionamento del <strong><code>DrawingPanel</code></strong> sulla base del disegno contenuto viene svolto dal costruttore della classe <strong><code>DrawingGUI</code></strong>. A seguire sono illustrate le modifiche al codice sorgente.</p>
+<p><img src="img/arcVis2.plantUML.svg" alt="arcVis2" /> <em>Fig. 3: architettura di un visualizzatore per disegni in grafica vettoriale, versione 2.</em></p>
+<pre class="java"><code>import java.awt.Graphics;
+
+public abstract class AbstractDrawing {
+
+    public abstract void draw(Graphics g);
+
+    public abstract int getDrawingWidth();
+
+    public abstract int getDrawingHeight();
+
+} // end class</code></pre>
+<pre class="java"><code>...
+
+public class ConcreteDrawing extends AbstractDrawing {
+
+    private Rectangle2D.Double rect;
+
+    ...
+
+    @Override
+    public int getDrawingWidth() {
+        return ((int)Math.round(rect.getX() + rect.getWidth() + 0.5));
+    }
+
+    @Override
+    public int getDrawingHeight() {
+        return ((int)Math.round(rect.getY() + rect.getHeight() + 0.5));
+    }
+
+} // end class</code></pre>
+<pre class="java"><code>...
+
+public class DrawingGUI extends JFrame {
+
+    private final static int HORIZONTAL_GAP = 10;
+    private final static int VERTICAL_GAP = 10;
+
+    ...
+
+    public DrawingGUI(String title, AbstractDrawing dw) {
+        ...
+
+        DrawingPanel drawPanel = new DrawingPanel();
+        drawPanel.setDrawing(dw);
+
+        drawPanel.setPreferredSize(new Dimension(
+                            dw.getDrawingWidth() + HORIZONTAL_GAP,
+                            dw.getDrawingHeight() + VERTICAL_GAP));
+
+        JScrollPane scrollPane = new JScrollPane(drawPanel);
+
+        Container contPane = getContentPane();
+        contPane.setLayout(new BorderLayout());
+        contPane.add(scrollPane, BorderLayout.CENTER);
+
+        pack();
+    }
+
+    ...
+
+} // end class</code></pre>
+<p>Sebbene la soluzione appena illustrata sia efficace, la logica che segue &egrave; in conflitto con quella seguita dal metodo <code>pack()</code> in cui &egrave; previsto che ogni componente sia in grado di determinare le proprie dimensioni sulla base delle componenti contenute (approccio bottom-up). In altri termini, sarebbe meglio che il <strong><code>DrawingPanel</code></strong> sia in grado di stabilire le proprie dimensioni in modo autonomo sulla base del disegno contenuto. Di seguito viene proposta una nuova architettura e le conseguenti modifiche al codice sorgente.</p>
+<p><img src="img/arcVis3.plantUML.svg" alt="arcVis3" /> <em>Fig. 4: architettura di un visualizzatore per disegni in grafica vettoriale, versione 3.</em></p>
+<pre class="java"><code>import java.awt.Dimension;
+import java.awt.Graphics;
+import javax.swing.JPanel;
+
+public class DrawingPanel extends JPanel {
+
+    private final static int HORIZONTAL_GAP = 10;
+    private final static int VERTICAL_GAP = 10;
+
+    private AbstractDrawing dw = null;
+
+    public DrawingPanel(AbstractDrawing dw) {
+        super();
+        this.dw = dw;
+        updatePanelPreferredSize();
+    }
+
+    public void setDrawing(AbstractDrawing dw) {
+        this.dw = dw;
+        updatePanelPreferredSize();
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        /* add instructions for your specific drawing */
+        dw.draw(g);
+    }
+
+    private void updatePanelPreferredSize() {
+        setPreferredSize(new Dimension(
+                        dw.getDrawingWidth() + HORIZONTAL_GAP,
+                        dw.getDrawingHeight() + VERTICAL_GAP));
+    }
+
+} // end class</code></pre>
+<pre class="java"><code>...
+
+public class DrawingGUI extends JFrame {
+
+    private final static int JFRAME_WIDTH = 800;
+    private final static int JFRAME_HEIGHT = 600;
+
+    public DrawingGUI(String title, AbstractDrawing dw) {
+        super(title);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(JFRAME_WIDTH, JFRAME_HEIGHT));
+
+        DrawingPanel drawPanel = new DrawingPanel(dw);
+
+        JScrollPane scrollPane = new JScrollPane(drawPanel);
+
+        Container contPane = getContentPane();
+        contPane.setLayout(new BorderLayout());
+        contPane.add(scrollPane, BorderLayout.CENTER);
+
+        pack();
+    }
+
+    public static void main(String[] args) {
+
+        ...
+    }
+
+} // end class</code></pre>
+<p>La soluzione appena proposta pu&ograve; esser resa ancor pi&ugrave; efficace ed elegante tenendo presente che, in base a quanto riportato nella documentazione del framework Swing, il funzionamento del metodo <code>pack()</code> prevede l'invocazione del metodo <code>getPreferredSize()</code> per chiedere ad un dato componente di fornirgli la sua dimensione &quot;preferita&quot;. Pertanto, una soluzione elegante e che si inserisce pienamente in questa logica consiste nell'effettuare l'overriding del metodo <code>getPreferredSize()</code> nella classe <strong><code>DrawingPanel</code></strong>, restituendo una dimensione tale da garantire il contenimento del disegno. Di seguito sono illustrate le modifiche all'architettura e al codice sorgente.</p>
+<p><img src="img/arcVis4.plantUML.svg" alt="arcVis4" /> <em>Fig. 5: architettura di un visualizzatore per disegni in grafica vettoriale, versione 4.</em></p>
+<pre class="java"><code>...
+
+public class DrawingPanel extends JPanel {
+
+    ...
+
+    public DrawingPanel(AbstractDrawing dw) {
+        super();
+        this.dw = dw;
+    }
+
+    public void setDrawing(AbstractDrawing dw) {
+        this.dw = dw;
+    }
+
+    ...
+
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(
+                dw.getDrawingWidth() + HORIZONTAL_GAP,
+                dw.getDrawingHeight() + VERTICAL_GAP);
+    }
+
+} // end class</code></pre>
+<p>Si supponga ora di voler dotare il visualizzatore di un'ulteriore funzionalit&agrave;, estremamente comune negli editor di grafica vettoriale, quale la possibilit&agrave; di modificare il fattore di scale del disegno. In altri termini, le primitive geometriche che descrivono il disegno devono essere espresse in forma parametrica rispetto al fattore di scala. Inoltre, ogni volta che viene richiesto il cambiamento di scala &egrave; necessario assicurarsi che le coordinate di tutti gli oggetti costituenti il disegno siano effettivamente aggiornate in modo coerente al cambiamento di scala. Si noti che uno dei rischi che &egrave; possibile introdurre adottando soluzioni estemporanee &egrave; che, a causa di errori di arrotondamento, non sia sempre possibile riottenere il disegno &quot;originale&quot;. Ad esempio, applicando in cascata i seguenti cambiamenti di scala: <em>x 1/3</em>, <em>x 1/3</em>, <em>x 1/3</em>, <em>x 3</em>, <em>x 3</em>, <em>x 3</em> il disegno finale potrebbe in realt&agrave; avere delle coordinate diverse da quello iniziale. Di seguito viene illustrata una nuova architettura del visualizzatore che implementa anche questa funzionalit&agrave; e che aggira il problema appena discusso limitando i possibili valori dei fattori di scala ai seguenti: {<em>0.01</em>, <em>0.025</em>, <em>0.05</em>, <em>0.10</em>, <em>0.25</em>, <em>0.50</em>, <em>0.75</em>, <em>1.00</em>, <em>1.25</em>, <em>1.50</em>, <em>1.75</em>, <em>2.00</em>, <em>4.00</em>, <em>8.00</em>, <em>16.00</em>, <em>24.00</em>, <em>32.00</em>, <em>64.00</em>}. In particolare, utilizzando due appositi pulsanti della GUI, l'utente pu&ograve; aumentare o ridurre il fattore di scala a patto di rimanere all'interno del set di valori prestabiliti.</p>
+<p><img src="img/arcVis5.plantUML.svg" alt="arcVis5" /> <em>Fig. 6: architettura di un visualizzatore per disegni in grafica vettoriale, versione 6; il visualizzatore permette di modificare il fattore di scala dei disegni.</em></p>
+<pre class="java"><code>import java.awt.Graphics;
+
+public abstract class AbstractDrawing {
+
+    protected double scaleFactor = 1.0;
+    protected double previousScaleFactor = 1.0;
+
+    public void setScaleFactor(double scaleFactor) {
+        this.previousScaleFactor = this.scaleFactor;
+        this.scaleFactor = scaleFactor;
+        this.rescaleDrawing();
+    }
+
+    public abstract void draw(Graphics g);
+
+    public abstract int getDrawingWidth();
+
+    public abstract int getDrawingHeight();
+
+    protected abstract void rescaleDrawing();
+
+} // end class</code></pre>
+<pre class="java"><code>...
+
+public class ConcreteDrawing extends AbstractDrawing {
+
+    private Rectangle2D.Double rect;
+
+    ...
+
+    @Override
+    protected void rescaleDrawing() {
+        this.rect.setRect(
+                this.rect.getX() * this.scaleFactor / this.previousScaleFactor,
+                this.rect.getY() * this.scaleFactor / this.previousScaleFactor,
+                this.rect.getWidth() * this.scaleFactor / this.previousScaleFactor,
+                this.rect.getHeight() * this.scaleFactor / this.previousScaleFactor);
+    }
+
+} // end class</code></pre>
+<pre class="java"><code>...
+
+public class DrawingPanel extends JPanel {
+
+    ...
+
+    public void setScaleFactor(double scaleFactor) {
+        dw.setScaleFactor(scaleFactor);
+    }
+
+} // end class</code></pre>
+<pre class="java"><code>...
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JToolBar;
+
+public class DrawingGUI extends JFrame implements ActionListener {
+
+    ...
+    private final static String ZOOM_IN = &quot;zoom in&quot;;
+    private final static String ZOOM_OUT = &quot;zoom out&quot;;
+    private final static double[] SCALE_FACTOR_ARRAY = {0.01, 0.025, 0.05, 0.10, 0.25, 0.50, 0.75,
+                            1.00, 1.25, 1.50, 1.75, 2.00, 4.00, 8.00,
+                            16.00, 24.00, 32.00, 64.00};
+    private final static int DEFAULT_SCALE_INDEX = 7;
+
+    private int scaleIndex;
+    private DrawingPanel drawPanel;
+
+    public DrawingGUI(String title, AbstractDrawing dw) {
+        super(title);
+        this.scaleIndex = DEFAULT_SCALE_INDEX;
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(JFRAME_WIDTH, JFRAME_HEIGHT));
+
+        // Create the toolbar.
+        JToolBar toolBar = new JToolBar(&quot;Still draggable&quot;);
+        addButtons(toolBar);
+
+        this.drawPanel = new DrawingPanel(dw);
+
+        JScrollPane scrollPane = new JScrollPane(drawPanel);
+
+        Container contPane = getContentPane();
+        contPane.setLayout(new BorderLayout());
+        contPane.add(scrollPane, BorderLayout.CENTER);
+
+        contPane.add(toolBar, BorderLayout.PAGE_START);
+
+        pack();
+    }
+
+    private void addButtons(JToolBar toolBar) {
+        // Insert the &quot;zoom in&quot; button.
+        JButton zoomIn = new JButton(ZOOM_IN);
+        zoomIn.addActionListener(this);
+        zoomIn.setActionCommand(ZOOM_IN);
+        toolBar.add(zoomIn);
+
+        // Insert the &quot;zoom out&quot; button.
+        JButton zoomOut = new JButton(ZOOM_OUT);
+        zoomOut.addActionListener(this);
+        zoomOut.setActionCommand(ZOOM_OUT);
+        toolBar.add(zoomOut);
+    }
+
+    private void zoomIn() {
+        if ((this.scaleIndex + 1) &lt; SCALE_FACTOR_ARRAY.length) {
+            this.scaleIndex++;
+            this.drawPanel.setScaleFactor(SCALE_FACTOR_ARRAY[this.scaleIndex]);
+        }
+    }
+
+    private void zoomOut() {
+        if ((this.scaleIndex - 1) &gt; 0) {
+            this.scaleIndex--;
+            this.drawPanel.setScaleFactor(SCALE_FACTOR_ARRAY[this.scaleIndex]);
+        }
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        String cmd = e.getActionCommand();
+
+        // Handle each button.
+        if (ZOOM_IN.equals(cmd)) { // &quot;zoom in&quot; button clicked
+            zoomIn();
+            System.out.println(&quot;Pressed button: &quot; + ZOOM_IN + &quot; - scaleFactor = &quot; + SCALE_FACTOR_ARRAY[this.scaleIndex]);
+            drawPanel.revalidate();
+            drawPanel.repaint();
+        }
+        else if (ZOOM_OUT.equals(cmd)) { // &quot;zoom out&quot; button clicked
+            zoomOut();
+            System.out.println(&quot;Pressed button: &quot; + ZOOM_OUT + &quot; - scaleFactor = &quot; + SCALE_FACTOR_ARRAY[this.scaleIndex]);
+            drawPanel.revalidate();
+            drawPanel.repaint();
+        }
+    }
+
+    public static void main(String[] args) {
+
+        final AbstractDrawing drawing = new ConcreteDrawing();
+
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new DrawingGUI(&quot;Drawing GUI&quot;, drawing).setVisible(true);
+
+            }
+        }); // end method invokeLater()
+    }
+
+} // end class</code></pre>
+<p>Un'altra possibilit&agrave; per evitare il problema delle approssimazioni consiste nel mantenere due descrizioni del disegno, una indipendente dal fattore di scala (o corrispondente al fattore di scala <em>sf = 1.0</em>) e l'altra dipendente dal fattore di scala che utilizza la prima come riferimento. Di seguito viene illustrata una possibile architettura specificatamente pensata per tale approccio e le modifiche da apportare al codice sorgente.</p>
+<p><img src="img/arcVis6.plantUML.svg" alt="arcVis6" /> <em>Fig. 7: architettura di un visualizzatore per disegni in grafica vettoriale, versione 7; il visualizzatore permette di modificare il fattore di scala dei disegni.</em></p>
+<pre class="java"><code>import java.awt.Graphics;
+
+public abstract class AbstractDrawing {
+
+    protected double scaleFactor = 1.0;
+
+    public void setScaleFactor(double scaleFactor) {
+        this.scaleFactor = scaleFactor;
+        this.rescaleDrawing();
+    }
+
+    public abstract void draw(Graphics g);
+
+    public abstract int getDrawingWidth();
+
+    public abstract int getDrawingHeight();
+
+    protected abstract void rescaleDrawing();
+
+} // end class</code></pre>
+<pre class="java"><code>...
+
+public class ConcreteDrawing extends AbstractDrawing {
+
+    private Rectangle2D.Double unscaledRect;
+    private Rectangle2D.Double rect;
+
+    public ConcreteDrawing() {
+        this.unscaledRect = new Rectangle2D.Double(100, 100, 300, 300); // x, y, width, height
+        this.rect = new Rectangle2D.Double(
+                        this.unscaledRect.getX() * this.scaleFactor,
+                        this.unscaledRect.getY() * this.scaleFactor,
+                        this.unscaledRect.getWidth() * this.scaleFactor,
+                        this.unscaledRect.getHeight() * this.scaleFactor);
+    }
+
+    ...
+
+    @Override
+    protected void rescaleDrawing() {
+        this.rect.setRect(
+                this.unscaledRect.getX() * this.scaleFactor,
+                this.unscaledRect.getY() * this.scaleFactor,
+                this.unscaledRect.getWidth() * this.scaleFactor,
+                this.unscaledRect.getHeight() * this.scaleFactor);
+    }
+
+} // end class</code></pre>
+
+<!-- [end] PANDOC OUTPUT
+================================================== -->
+
+</body>
+</html>
